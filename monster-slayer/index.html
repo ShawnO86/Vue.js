@@ -13,17 +13,21 @@
 
 <body>
   <header>
-    <h1>Monster Slayer</h1>
+    <h1>Vue.js Monster Slayer</h1>
   </header>
-  <div id="game">
+
+  <main id="game">
+
     <section id="monster" class="container">
       <h2>Monster Health</h2>
       <div class="healthbar">
         <div class="healthbar__value" :style="monsterHpBar">
-          <span v-if="monsterHP > 0">{{ monsterHP }}</span><span v-else>Dead</span>
+          <span v-if="monsterHP > 0">{{ monsterHP }}</span>
+          <span v-else>Dead</span>
         </div>
       </div>
     </section>
+
     <section id="player" class="container">
       <h2>Your Health</h2>
       <div class="healthbar">
@@ -32,24 +36,38 @@
         </div>
       </div>
     </section>
-    <section class="container" v-if="winner">
+
+    <section id="gameStatus" class="container" v-if="winner">
       <h2>Game Over...</h2>
-      <h3 v-if="winner === 'monster'">Monster Wins!</h3>
-      <h3 v-else-if="winner === 'player'">Player Wins!</h3>
+      <h3 v-if="winner === 'Monster'">Monster Wins!</h3>
+      <h3 v-else-if="winner === 'Player'">Player Wins!</h3>
       <h3 v-else>It's a draw!</h3>
       <button v-on:click="reset">New Game</button>
     </section>
+
     <section id="controls" v-else>
       <button v-on:click="attack">ATTACK</button>
       <button v-on:click="specialAttack" :disabled="specialAttackAvailable">SPECIAL ATTACK</button>
       <button v-on:click="heal">HEAL</button>
       <button v-on:click="surrender">SURRENDER</button>
     </section>
+
     <section id="log" class="container">
       <h2>Battle Log</h2>
-      <ul></ul>
+      <ul>
+        <li v-for="(msg, index) in logMessages" :key="msg">
+          <span :class="msg.actionBy === 'Player' ? 'log--player' : 'log--monster'">
+            {{ msg.actionBy + ' ' }}</span>
+          <span
+            v-if="msg.actionType === 'Attack' || msg.actionType === 'Counter Attack' || msg.actionType === 'Special Attack'">
+            <span class="log--damage">{{ msg.actionType + ' deals ' + msg.actionValue + ' damage!' }}</span>
+          </span>
+          <span v-else class="log--heal">{{ ' heals ' + msg.actionValue + ' damage!' }}</span>
+        </li>
+      </ul>
     </section>
-  </div>
+
+  </main>
 </body>
 
 </html>

@@ -37,19 +37,19 @@ const app = Vue.createApp({
         userHP(value) {
             if (value <= 0 && this.monsterHP <= 0) {
                 // draw
-                this.winner = 'draw';
+                this.winner = 'Draw';
             } else if (value <= 0) {
                 //player lose
-                this.winner = 'monster';
+                this.winner = 'Monster';
             }
         },
         monsterHP(value) {
             if (value <= 0 && this.userHP <= 0) {
                 // draw
-                this.winner = 'draw';
+                this.winner = 'Draw';
             } else if (value <= 0) {
                 //monster lose
-                this.winner = 'player';
+                this.winner = 'Player';
             }
         }
     },
@@ -57,20 +57,20 @@ const app = Vue.createApp({
         attack() {
             const dmg = calcDmg(2, 10);
             this.monsterHP -= dmg;
-            this.logMessagesOut('player', 'attack', dmg)
             this.monsterCounter();
+            this.logMessagesOut('Player', 'Attack', dmg)
         },
         monsterCounter() {
             const dmg = calcDmg(5, 15);
             this.userHP -= dmg;
             this.round++;
-            this.logMessagesOut('monster', 'attack', dmg)
+            this.logMessagesOut('Monster', 'Counter Attack', dmg)
         },
         specialAttack() {
             const dmg = calcDmg(10, 20);
             this.monsterHP -= dmg;
-            this.logMessagesOut('player', 'special-attack', dmg)
             this.monsterCounter();
+            this.logMessagesOut('Player', 'Special Attack', dmg)
         },
         heal() {
             const dmg = calcDmg(10, 20);
@@ -79,8 +79,8 @@ const app = Vue.createApp({
             } else {
                 this.userHP += dmg;
             }
-            this.logMessagesOut('player', 'heal', dmg)
             this.monsterCounter();
+            this.logMessagesOut('Player', 'Heal', dmg)
         },
         reset() {
             this.userHP = 100;
@@ -90,7 +90,7 @@ const app = Vue.createApp({
             this.logMessages = [];
         },
         surrender() {
-            this.winner = 'monster'
+            this.winner = 'Monster'
         },
         logMessagesOut(who, what, value) {
             this.logMessages.unshift({

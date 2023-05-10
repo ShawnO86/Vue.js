@@ -108,6 +108,10 @@ button:disabled {
   margin: 0.5rem 0;
 }
 
+#log li:nth-of-type(2n) {
+  border-bottom: 1px solid black;
+}
+
 .log--player {
   color: #7700ff;
 }
