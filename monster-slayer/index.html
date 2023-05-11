@@ -32,16 +32,16 @@
       <h2>Your Health</h2>
       <div class="healthbar">
         <div class="healthbar__value" :style="userHpBar">
-          <span v-if="userHP > 0">{{ userHP }}</span><span v-else>Dead</span>
+          <span v-if="userHP > 0">{{ userHP }}</span>
+          <span v-else>Dead</span>
         </div>
       </div>
     </section>
 
     <section id="gameStatus" class="container" v-if="winner">
       <h2>Game Over...</h2>
-      <h3 v-if="winner === 'Monster'">Monster Wins!</h3>
-      <h3 v-else-if="winner === 'Player'">Player Wins!</h3>
-      <h3 v-else>It's a draw!</h3>
+      <h3 v-if="winner === 'Draw'">It's a draw!</h3>
+      <h3 v-else>{{ winner }} wins!!</h3>
       <button v-on:click="reset">New Game</button>
     </section>
 
