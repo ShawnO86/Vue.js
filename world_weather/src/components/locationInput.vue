@@ -34,12 +34,18 @@ form {
   border-bottom: 1px solid var(--text-color);
   text-align: right;
   width: 100%;
-  background-color: black;
+  background-color: var(--bg-color);
 }
 
 input,
 button {
   padding: 0.25rem;
   margin: 0.5rem 0 0 0.5rem;
+}
+
+@media screen and (max-width: 1024px) {
+  form {
+  padding: 1rem;
+}
 }
 </style>

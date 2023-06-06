@@ -3,14 +3,25 @@
     <location-input @location="getInput"></location-input>
     <h2>Weather Details</h2>
     <div v-if="currentLocation" class="weatherItemsHolder">
-      <h3>{{ weatherOutput.name }}, {{ weatherOutput.local }}</h3>
+      <h3>{{ weatherOutput[0].name }}, {{ weatherOutput[0].local }}</h3>
       <sub>Click a day for more info</sub>
-      <div v-for="(item, index) in weatherOutput.forcast" :key="index" class="weatherItems">
-        <details>
-          <summary>{{ item.date }}</summary>
-          <h4>{{ item.iconDesc.description }}</h4>
-          <img :src="iconPrefix(item.iconDesc.icon)" />
-        </details>
+      <div v-for="(item, index) in weatherOutput" :key="index" class="weatherItems">
+        <div v-for="(day, index) in item.forcast" :key="index">
+          <!-- Turn into own component -- prop == {{ day }} -->
+          <details>
+            <summary class="weatherDay">
+              <div class="dateTemp">
+                <p>{{ day.date }}</p>
+                <p>{{ day.temp }}</p>
+              </div>
+              <div class="iconHolder">
+                <p>{{ day.iconDesc.description }}</p>
+                <p>{{ day.iconDesc.icon }}</p>
+              </div>
+            </summary>
+            <p>Detailed weather info for the day</p>
+          </details>
+        </div>
       </div>
     </div>
   </section>
@@ -25,30 +36,75 @@ export default {
   data() {
     return {
       currentLocation: '',
-      weatherOutput: [{}]
+      weatherOutput: [
+        {
+          name: 'Rockford',
+          local: 'IL',
+          forcast: [
+            {
+              date: 'June, 06 2023',
+              temp: '90°',
+              iconDesc: {
+                description: 'Cloudy',
+                icon: 'icon IMG'
+              }
+            },
+            {
+              date: 'June, 07 2023',
+              temp: '90°',
+              iconDesc: {
+                description: 'Cloudy',
+                icon: 'icon IMG'
+              }
+            },
+            {
+              date: 'June, 08 2023',
+              temp: '90°',
+              iconDesc: {
+                description: 'Cloudy',
+                icon: 'icon IMG'
+              }
+            },
+            {
+              date: 'June, 09 2023',
+              temp: '90°',
+              iconDesc: {
+                description: 'Cloudy',
+                icon: 'icon IMG'
+              }
+            },
+            {
+              date: 'June, 10 2023',
+              temp: '90°',
+              iconDesc: {
+                description: 'Cloudy',
+                icon: 'icon IMG'
+              }
+            },
+            {
+              date: 'June, 11 2023',
+              temp: '90°',
+              iconDesc: {
+                description: 'Cloudy',
+                icon: 'icon IMG'
+              }
+            },
+            {
+              date: 'June, 12 2023',
+              temp: '90°',
+              iconDesc: {
+                description: 'Cloudy',
+                icon: 'icon IMG'
+              }
+            }
+          ]
+        }
+      ]
     }
   },
   methods: {
-    iconPrefix(iconName) {
-      return `https://www.weatherbit.io/static/img/icons/${iconName}.png`
-    },
     getInput(location) {
       this.currentLocation = location
-      this.getData(`https://weather-app-api-v5vu.onrender.com/data/${this.currentLocation}`)
-    },
-    async getData(url = '') {
-      //calls argument url and waits for data/status
-      const req = await fetch(url)
-      let data = {}
-      try {
-        //return api data in JSON
-        data = await req.json()
-      } catch (e) {
-        console.log('error', e)
-      } finally {
-        console.log(data)
-        this.weatherOutput = data
-      }
     }
   }
 }
@@ -58,10 +114,10 @@ export default {
 .weatherDisplay {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  background: black;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.1);
   width: 40%;
-  padding: 0 1rem 0.5rem 1rem;
+  padding: 0 0 0.5rem 0;
   text-align: right;
   overflow-y: auto;
 }
@@ -69,30 +125,35 @@ export default {
 h2 {
   border-bottom: 1px solid var(--text-color);
   margin: 3rem 0 1rem 0;
-  padding-bottom: 1rem;
+  padding: 1rem;
   width: 100%;
 }
 
 .weatherItemsHolder {
   width: 100%;
+  padding: 1rem;
 }
 
 .weatherItems {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   margin: 1rem 0 1rem 0;
   padding: 0.25rem 0;
-  background-color: var(--pop-color);
 }
 
-summary {
-  cursor: pointer;
-  width: 100%;
-  background-color: rgba(0, 174, 255, 0.75);
-  color: black;
-  padding: 0.25rem 1rem;
+.weatherDay {
+  display: flex;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
 }
 
-summary:hover {
-  background-color: rgba(0, 174, 255, 1);
+.iconHolder,
+.dateTemp {
+  display: flex;
+  gap: 0 0.5rem;
 }
 
 @media screen and (max-width: 1024px) {

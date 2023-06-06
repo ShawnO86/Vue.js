@@ -1,6 +1,6 @@
 <template>
   <main>
-    <header><h1>World Weather Header</h1></header>
+    <header><h1>Current and 7-Day Weather Forcast</h1></header>
     <weather-display></weather-display>
   </main>
 </template>
@@ -16,7 +16,7 @@ export default {
 
 <style>
 :root {
-  --bg-color: #222;
+  --bg-color: #0F5B86;
   --text-color: #f8f8f8;
   --pop-color: rgba(0, 174, 255, 0.589);
 }
@@ -44,6 +44,7 @@ body {
 #app {
   width: 100vw;
   max-height: 100vw;
+  margin: 0 50px;
 }
 
 main {
@@ -62,6 +63,12 @@ header {
   body {
     align-items: flex-start;
   }
+
+  #app {
+  width: 100vw;
+  max-height: 100vw;
+  margin: 0;
+}
 
   main {
     flex-direction: column;
