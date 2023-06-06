@@ -28,10 +28,10 @@
 </template>
 
 <script>
-import LocationInput from './locationInput.vue'
+import LocationInput from './locationInput.vue';
 export default {
   components: {
-    LocationInput
+    LocationInput,
   },
   data() {
     return {
@@ -104,7 +104,7 @@ export default {
   },
   methods: {
     getInput(location) {
-      this.currentLocation = location
+      this.currentLocation = location;
     }
   }
 }

@@ -6,10 +6,10 @@
 </template>
 
 <script>
-import WeatherDisplay from './components/weatherDisplay.vue'
+import WeatherDisplay from './components/weatherDisplay.vue';
 export default {
   components: {
-    WeatherDisplay
+    WeatherDisplay,
   }
 }
 </script>

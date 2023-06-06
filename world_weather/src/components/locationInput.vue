@@ -15,7 +15,7 @@ export default {
   emits: ['location'],
   data() {
     return {
-      locationInput: ''
+      locationInput: '',
     }
   },
   methods: {
