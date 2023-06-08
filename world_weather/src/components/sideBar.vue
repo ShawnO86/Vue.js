@@ -26,73 +26,10 @@ export default {
     WeatherDisplay
   },
   emits: ['location'],
+  props: ['weatherOutput'],
   data() {
     return {
-      currentLocation: '',
-      weatherOutput: [
-        {
-          name: 'Rockford',
-          local: 'IL',
-          forcast: [
-            {
-              date: 'June, 06 2023',
-              temp: '90°',
-              iconDesc: {
-                description: 'Cloudy',
-                icon: 'icon IMG'
-              }
-            },
-            {
-              date: 'June, 07 2023',
-              temp: '90°',
-              iconDesc: {
-                description: 'Cloudy',
-                icon: 'icon IMG'
-              }
-            },
-            {
-              date: 'June, 08 2023',
-              temp: '90°',
-              iconDesc: {
-                description: 'Cloudy',
-                icon: 'icon IMG'
-              }
-            },
-            {
-              date: 'June, 09 2023',
-              temp: '90°',
-              iconDesc: {
-                description: 'Cloudy',
-                icon: 'icon IMG'
-              }
-            },
-            {
-              date: 'June, 10 2023',
-              temp: '90°',
-              iconDesc: {
-                description: 'Cloudy',
-                icon: 'icon IMG'
-              }
-            },
-            {
-              date: 'June, 11 2023',
-              temp: '90°',
-              iconDesc: {
-                description: 'Cloudy',
-                icon: 'icon IMG'
-              }
-            },
-            {
-              date: 'June, 12 2023',
-              temp: '90°',
-              iconDesc: {
-                description: 'Cloudy',
-                icon: 'icon IMG'
-              }
-            }
-          ]
-        }
-      ]
+      currentLocation: ''
     }
   },
   methods: {
