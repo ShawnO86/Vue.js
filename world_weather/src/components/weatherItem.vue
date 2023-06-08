@@ -24,12 +24,12 @@ export default {
 .weatherDay {
   display: flex;
   justify-content: space-between;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 0.5rem;
+  padding: 0.5rem 0;
   cursor: pointer;
 }
-.weatherDay:hover {
-  background: rgba(255, 255, 255, 0.15);
+.weatherDay:hover,
+.weatherDay:focus {
+  color: var(--pop-color);
 }
 .iconHolder,
 .dateTemp {

@@ -1,7 +1,10 @@
 <template>
   <main>
-    <header><h1>7-Day Weather Forcast</h1></header>
-    <side-bar></side-bar>
+    <header>
+      <h1>7-Day Weather Forcast</h1>
+      <h2 class="location">{{ currentLocation }}</h2>
+    </header>
+    <side-bar @location="getInput"></side-bar>
   </main>
 </template>
 
@@ -10,15 +13,26 @@ import SideBar from './components/sideBar.vue'
 export default {
   components: {
     SideBar
+  },
+  data() {
+    return {
+      currentLocation: ''
+    }
+  },
+  methods: {
+    getInput(location) {
+      this.currentLocation = location
+    }
   }
 }
 </script>
 
 <style>
 :root {
-  --bg-color: #0f5b86;
-  --text-color: #f8f8f8;
-  --pop-color: rgba(0, 174, 255, 0.589);
+  --bg-color: #3c6a82;
+  --secondary-color: #24404f;
+  --text-color: #cfe5ee;
+  --pop-color: #5fa8cf;
 }
 *,
 *::before,
@@ -50,6 +64,9 @@ main {
 }
 header {
   padding: 0.5rem 1rem;
+}
+.location {
+  margin-top: 3rem;
 }
 @media screen and (max-width: 1024px) {
   body {

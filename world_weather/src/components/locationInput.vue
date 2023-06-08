@@ -17,12 +17,12 @@ export default {
   emits: ['location'],
   data() {
     return {
-      locationInput: '',
+      locationInput: ''
     }
   },
   methods: {
     sendInput() {
-      this.$emit('location', this.locationInput);
+      this.$emit('location', this.locationInput)
     }
   }
 }
@@ -33,7 +33,7 @@ form {
   display: flex;
   flex-flow: row wrap;
   padding: 1rem 0 2rem 0;
-  width: calc(100% - 4rem); 
+  width: calc(100% - 4rem);
   gap: 0 1rem;
   border-bottom: 1px solid var(--text-color);
 }
@@ -42,18 +42,24 @@ input,
 button {
   padding: 0.75rem;
   margin-top: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.25);
+  background-color: var(--bg-color);
   border-radius: 0.5rem;
-  border: none;
+  border: 1px solid var(--bg-color);
   color: var(--text-color);
 }
 
+input:focus,
+button:hover {
+  border: 1px solid var(--text-color);
+}
+
 input {
- flex: 3;
+  flex: 3;
 }
 
 button {
   flex: 1;
+  cursor: pointer;
 }
 
 input::placeholder {

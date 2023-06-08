@@ -2,19 +2,18 @@
   <section class="sideBar">
     <location-input @location="getInput"></location-input>
 
-
     <div v-if="currentLocation" class="weatherDisplay">
-      <p @click="currentLocation = ''">back</p>
-      <weather-display :weatherOutput="weatherOutput"></weather-display>
+      <button @click="currentLocation = ''" class="backBtn">Back</button>
+      <weather-display
+        :weatherOutput="weatherOutput"
+      ></weather-display>
     </div>
     <div v-else class="defaultLocations">
-
-      <p @click="currentLocation = 'Chicago, IL'">Chicago, IL</p>
-      <p @click="currentLocation = 'Los Angeles, CA'">Los Angeles, CA</p>
-      <p @click="currentLocation = 'New York, NY'">New York, NY</p>
-      <p @click="currentLocation = 'Miami, FL'">Miami, FL</p>
+      <button @click="setCurrentLocation" class="locationBtn">Chicago, IL</button>
+      <button @click="setCurrentLocation" class="locationBtn">Los Angeles, CA</button>
+      <button @click="setCurrentLocation" class="locationBtn">New York, NY</button>
+      <button @click="setCurrentLocation" class="locationBtn">Miami, FL</button>
     </div>
-
   </section>
 </template>
   
@@ -26,6 +25,7 @@ export default {
     LocationInput,
     WeatherDisplay
   },
+  emits: ['location'],
   data() {
     return {
       currentLocation: '',
@@ -98,6 +98,11 @@ export default {
   methods: {
     getInput(location) {
       this.currentLocation = location
+      this.$emit('location', this.currentLocation)
+    },
+    setCurrentLocation(e) {
+      this.currentLocation = e.target.innerText
+      this.$emit('location', this.currentLocation)
     }
   }
 }
@@ -108,34 +113,48 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--secondary-color);
   width: 50%;
   padding: 0 0 0.5rem 0;
   overflow-y: auto;
 }
 .defaultLocations {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: wrap;
   width: calc(100% - 4rem);
   padding: 3rem 0;
-  gap: 1.25rem;
+  gap: 1rem;
   border-bottom: 1px solid var(--text-color);
 }
-.weatherDisplay {
-  width: 100%;
-}
-.weatherOption {
-  background: rgba(255, 255, 255, 0.1);
-  width: 50%;
-  text-align: center;
-  padding: 0.5rem;
+.locationBtn {
+  background: none;
+  border: none;
+  color: var(--text-color);
   cursor: pointer;
+  padding: 0.5rem 0;
 }
-.weatherOption:hover {
-  background: rgba(255, 255, 255, 0.15);
+.locationBtn:hover {
+  color: var(--pop-color);
 }
-.weatherOption:active {
-  background: rgba(0, 0, 0, 0.1);
+.backBtn {
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--text-color);
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 1rem 0;
+  margin: 0 auto;
+  width: calc(100% - 4rem);
+}
+.locationBtn:hover,
+.backBtn:hover {
+  color: var(--pop-color);
+}
+.weatherDisplay {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 @media screen and (max-width: 1024px) {
   .sideBar {

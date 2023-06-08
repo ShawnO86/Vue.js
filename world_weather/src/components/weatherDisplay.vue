@@ -1,6 +1,5 @@
 <template>
   <div class="weatherItemsHolder">
-    <h3>{{ weatherOutput[0].name }}, {{ weatherOutput[0].local }}</h3>
     <sub>Click a day for more info</sub>
 
     <div v-for="(item, index) in weatherOutput" :key="index" class="weatherItems">
@@ -29,12 +28,12 @@ export default {
   width: 100%;
 }
 .weatherItemsHolder {
-  width: calc(100% - 4rem); 
+  width: calc(100% - 4rem);
   margin: 3rem auto 0 auto;
 }
 @media screen and (max-width: 1024px) {
   .weatherItemsHolder {
-  width: calc(100% - 8rem); 
-}
+    width: calc(100% - 8rem);
+  }
 }
 </style>
