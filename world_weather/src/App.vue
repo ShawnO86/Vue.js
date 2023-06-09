@@ -2,9 +2,7 @@
   <header>
     <h1>7-Day Weather Forcast</h1>
     <h2 class="location">{{ currentLocation }}</h2>
-    <button @click="getData">Test</button>
     <h3>Mounted Test data: {{ serverOutput }}</h3>
-    <h3>Button Test data: {{ testButton.message }}</h3>
   </header>
   <main>
     <section class="sideBar">
@@ -106,17 +104,6 @@ export default {
   methods: {
     getInput(location) {
       this.currentLocation = location
-    },
-    async getData() {
-      //calls argument url and waits for data/status
-      const req = await fetch(localHello)
-      try {
-        //return api data in JSON
-        const data = await req.json()
-        this.testButton = data
-      } catch (e) {
-        console.log('error', e)
-      }
     }
   }
 }
