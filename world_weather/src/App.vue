@@ -1,13 +1,15 @@
 <template>
+  <header>
+    <h1>7-Day Weather Forcast</h1>
+    <h2 class="location">{{ currentLocation }}</h2>
+    <button @click="getData">Test</button>
+    <h3>Mounted Test data: {{ serverOutput }}</h3>
+    <h3>Button Test data: {{ testButton.message }}</h3>
+  </header>
   <main>
-    <header>
-      <h1>7-Day Weather Forcast</h1>
-      <h2 class="location">{{ currentLocation }}</h2>
-      <button @click="getData">Test</button>
-      <h3>Mounted Test data: {{ serverOutput }}</h3>
-      <h3>Button Test data: {{ testButton.message }}</h3>
-    </header>
-    <side-bar @location="getInput" :weatherOutput="weatherOutput"></side-bar>
+    <section class="sideBar">
+      <side-bar @location="getInput"></side-bar>
+    </section>
   </main>
 </template>
 
@@ -89,11 +91,16 @@ export default {
       testButton: ''
     }
   },
+  provide() {
+    return {
+      weatherOutput: this.weatherOutput
+    }
+  },
   mounted() {
     fetch(localHello)
       .then((response) => response.json())
       .then((result) => {
-        this.serverOutput = result
+        this.serverOutput = result.message
       })
   },
   methods: {
@@ -139,19 +146,31 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 #app {
+  display: flex;
+  justify-content: space-between;
   width: 100vw;
-  max-height: 100vw;
+  height: 100vh;
   margin: 0 50px;
 }
 main {
   display: flex;
-  justify-content: space-between;
+  justify-content: right;
+  width: 50%;
   margin: 0;
   padding: 0;
-  height: 100vh;
 }
 header {
   padding: 0.5rem 1rem;
+}
+.sideBar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--secondary-color);
+  width: 100%;
+  padding: 0 0 0.5rem 0;
+  overflow-y: auto;
+  height: 100%;
 }
 .location {
   margin-top: 3rem;
@@ -161,11 +180,19 @@ header {
     align-items: flex-start;
   }
   #app {
+    flex-direction: column;
     margin: 0;
   }
   main {
-    flex-direction: column;
+    width: 100%;
+    height: 100%;
     justify-content: flex-start;
+  }
+  header {
+    padding: 0.5rem 4rem;
+  }
+  .sideBar {
+    padding: 0 2rem 1rem 2rem;
   }
 }
 </style>

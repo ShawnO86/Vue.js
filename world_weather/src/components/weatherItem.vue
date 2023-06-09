@@ -1,13 +1,13 @@
 <template>
   <details>
     <summary class="weatherDay">
-      <div class="dateTemp">
-        <p>{{ day.date }}</p>
-        <p>{{ day.temp }}</p>
-      </div>
-      <div class="iconHolder">
-        <p>{{ day.iconDesc.description }}</p>
+      <div class="firstGroup">
         <p>{{ day.iconDesc.icon }}</p>
+        <p>{{ day.date }}</p>
+      </div>
+      <div class="secondGroup">
+        <p>{{ day.temp }}</p>
+        <p>{{ day.iconDesc.description }}</p>
       </div>
     </summary>
     <p>Detailed weather info for the day</p>
@@ -21,18 +21,22 @@ export default {
 </script>
   
   <style scoped>
+details {
+  border-top: 1px solid #071720;
+  border-bottom: 1px solid #071720;
+  padding: 1rem 2rem;
+}
 .weatherDay {
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem 0;
   cursor: pointer;
 }
 .weatherDay:hover,
 .weatherDay:focus {
   color: var(--pop-color);
 }
-.iconHolder,
-.dateTemp {
+.firstGroup,
+.secondGroup {
   display: flex;
   gap: 0 0.5rem;
 }

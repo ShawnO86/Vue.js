@@ -6,7 +6,7 @@
       name="locationInput"
       id="locationInput"
       v-model="locationInput"
-      placeholder="City, State, or Zipcode"
+      placeholder="(City, State) or Zipcode"
     />
     <button>Go</button>
   </form>
@@ -69,10 +69,5 @@ input::placeholder {
 label {
   flex: 1 100%;
   text-align: left;
-}
-@media screen and (max-width: 1024px) {
-  form {
-    width: calc(100% - 8rem);
-  }
 }
 </style>
