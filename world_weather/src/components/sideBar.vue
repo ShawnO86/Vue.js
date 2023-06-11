@@ -5,7 +5,7 @@
     <div class="btnAlign">
       <button @click="currentLocation = ''" class="backBtn">&lt; Back</button>
     </div>
-    <weather-display />
+    <weather-display :weatherOutput="weatherData"/>
   </div>
   <default-locations v-else @location="getInput"></default-locations>
 </template>
@@ -21,6 +21,7 @@ export default {
     defaultLocations
   },
   emits: ['location'],
+  props: ['weatherData'],
   data() {
     return {
       currentLocation: ''

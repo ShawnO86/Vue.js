@@ -1,4 +1,5 @@
 <template>
+  <h4>Default Locations</h4>
   <div class="defaultLocations">
     <button @click="setCurrentLocation" class="locationBtn">Chicago, IL</button>
     <button @click="setCurrentLocation" class="locationBtn">Los Angeles, CA</button>

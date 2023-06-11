@@ -2,12 +2,10 @@
   <details>
     <summary class="weatherDay">
       <div class="firstGroup">
-        <p>{{ day.iconDesc.icon }}</p>
-        <p>{{ day.date }}</p>
+        <p>{{ day }}</p>
       </div>
       <div class="secondGroup">
-        <p>{{ day.temp }}</p>
-        <p>{{ day.iconDesc.description }}</p>
+
       </div>
     </summary>
     <p>Detailed weather info for the day</p>

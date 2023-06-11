@@ -13,7 +13,7 @@ dotenv.config();
 app.use(morgan('tiny'));
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static(__dirname + '/dist/assets'));
+app.use(express.static(__dirname + '/dist'));
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/dist/index.html');

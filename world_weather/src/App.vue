@@ -2,11 +2,13 @@
   <header>
     <h1>7-Day Weather Forcast</h1>
     <h2 class="location">{{ currentLocation }}</h2>
-    <h3>Mounted Test data: {{ serverOutput[0] }}</h3>
+    <div v-for="(item, index) in weatherOutput.data" :key="index" class="weatherItems">
+      {{ item }}
+    </div>
   </header>
   <main>
     <section class="sideBar">
-      <side-bar @location="getInput"></side-bar>
+      <side-bar @location="getInput" :weather-data="weatherOutput"></side-bar>
     </section>
   </main>
 </template>
@@ -21,9 +23,7 @@ export default {
     return {
       currentLocation: '',
       weatherOutput: [
-        
       ],
-      serverOutput: {},
       testButton: ''
     }
   },
@@ -36,8 +36,7 @@ export default {
     fetch('http://localhost:8081/data')
       .then((response) => response.json())
       .then((result) => {
-        this.serverOutput = result.data
-        this.weatherOutput = this.serverOutput
+        this.weatherOutput = result
       })
   },
   methods: {

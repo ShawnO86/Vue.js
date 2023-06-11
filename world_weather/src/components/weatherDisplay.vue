@@ -2,7 +2,7 @@
   <div class="weatherItemsHolder">
     <sub>Click a day for more info</sub>
     <div v-for="(item, index) in weatherOutput" :key="index" class="weatherItems">
-      <div v-for="(day, index) in item.forcast" :key="index">
+      <div v-for="(day, index) in item" :key="index">
         <weather-item :day="day"></weather-item>
       </div>
     </div>
@@ -13,7 +13,7 @@
 import weatherItem from './weatherItem.vue'
 export default {
   components: { weatherItem },
-  inject: ['weatherOutput']
+  props: ['weatherOutput']
 }
 </script>
 
