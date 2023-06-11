@@ -2,7 +2,7 @@
   <header>
     <h1>7-Day Weather Forcast</h1>
     <h2 class="location">{{ currentLocation }}</h2>
-    <h3>Mounted Test data: {{ serverOutput }}</h3>
+    <h3>Mounted Test data: {{ serverOutput[0] }}</h3>
   </header>
   <main>
     <section class="sideBar">
@@ -12,7 +12,6 @@
 </template>
 
 <script>
-const localHello = 'http://localhost:8081/hello'
 import SideBar from './components/sideBar.vue'
 export default {
   components: {
@@ -22,68 +21,7 @@ export default {
     return {
       currentLocation: '',
       weatherOutput: [
-        {
-          name: 'Rockford',
-          local: 'IL',
-          forcast: [
-            {
-              date: 'June, 06 2023',
-              temp: '90°',
-              iconDesc: {
-                description: 'Cloudy',
-                icon: 'icon IMG'
-              }
-            },
-            {
-              date: 'June, 07 2023',
-              temp: '90°',
-              iconDesc: {
-                description: 'Cloudy',
-                icon: 'icon IMG'
-              }
-            },
-            {
-              date: 'June, 08 2023',
-              temp: '90°',
-              iconDesc: {
-                description: 'Cloudy',
-                icon: 'icon IMG'
-              }
-            },
-            {
-              date: 'June, 09 2023',
-              temp: '90°',
-              iconDesc: {
-                description: 'Cloudy',
-                icon: 'icon IMG'
-              }
-            },
-            {
-              date: 'June, 10 2023',
-              temp: '90°',
-              iconDesc: {
-                description: 'Cloudy',
-                icon: 'icon IMG'
-              }
-            },
-            {
-              date: 'June, 11 2023',
-              temp: '90°',
-              iconDesc: {
-                description: 'Cloudy',
-                icon: 'icon IMG'
-              }
-            },
-            {
-              date: 'June, 12 2023',
-              temp: '90°',
-              iconDesc: {
-                description: 'Cloudy',
-                icon: 'icon IMG'
-              }
-            }
-          ]
-        }
+        
       ],
       serverOutput: {},
       testButton: ''
@@ -95,10 +33,11 @@ export default {
     }
   },
   mounted() {
-    fetch(localHello)
+    fetch('http://localhost:8081/data')
       .then((response) => response.json())
       .then((result) => {
-        this.serverOutput = result.message
+        this.serverOutput = result.data
+        this.weatherOutput = this.serverOutput
       })
   },
   methods: {
@@ -142,7 +81,7 @@ body {
 main {
   display: flex;
   justify-content: right;
-  width: 50%;
+  min-width: 47%;
   margin: 0;
   padding: 0;
 }
