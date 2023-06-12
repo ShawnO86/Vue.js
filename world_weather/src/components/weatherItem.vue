@@ -1,6 +1,6 @@
 <template>
   <details>
-    <summary class="weatherDay">
+    <summary>
       <div class="firstGroup">
         <p>{{ day.datetime }}</p>
       </div>
@@ -8,10 +8,12 @@
         <img src="https://cdn.weatherbit.io/static/img/icons/c03d.png" />
       </div>
     </summary>
+    <div class="weatherDetails">
     <p>Detailed weather info for the day, Detailed weather info for the day</p>
     <p>Detailed weather info for the day</p>
     <p>Detailed weather info for the day</p>
     <p>Detailed weather info for the day</p>
+  </div>
   </details>
 </template>
   
@@ -23,18 +25,25 @@ export default {
   
   <style scoped>
 details {
-  border-top: 1px solid rgb(var(--text-rgb), 0.25);
-  border-bottom: 1px solid rgb(var(--text-rgb), 0.25);
-}
-.weatherDay {
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem 0;
+  padding: 0.5rem 0;
   cursor: pointer;
 }
-.weatherDay:hover,
-.weatherDay:focus {
+.weatherDetails{
+  padding: 1rem 0;
+}
+summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(var(--text-rgb), 0.15);
+  border-radius: 0.5rem;
+  padding: 0 0.5rem;
+}
+summary:hover,
+summary:focus {
+  outline: none;
   color: rgb(var(--pop-rgb));
+  background-color: rgba(var(--bg-rgb), 0.25);
 }
 .firstGroup,
 .secondGroup {

@@ -32,7 +32,7 @@ export default {
 form {
   display: flex;
   flex-flow: row wrap;
-  padding: 1rem 0 2rem 0;
+  padding: 1rem 0;
   width: 100%;
   gap: 0 1rem;
   border-bottom: 1px solid rgb(var(--text-rgb), 0.7);

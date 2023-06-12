@@ -68,33 +68,29 @@ export default {
   padding: 0;
 }
 body {
-  display: flex;
-  color: rgb(var(--text-rgb));
-  background: linear-gradient(180deg, #007ab3 0%, #b4cfdb 100%);
   font-family: 'Segoe UI', sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 100vh;
-  overflow: hidden;
 }
 #app {
   display: flex;
   justify-content: space-between;
-  width: 100vw;
+  height: 100vh;
+  color: rgb(var(--text-rgb));
+  background: linear-gradient(180deg, #007ab3 20%, #b4cfdb 110%);
 }
 main {
   display: flex;
-  min-width: 40%;
+  min-width: 50%;
   background: rgb(var(--bg-rgb), 0.7);
-  overflow: auto;
 }
 header {
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  padding: 0.5rem clamp(1rem, 5vw, 2rem);
+  padding: 0.5rem clamp(1rem, 5vw, 3rem);
 }
 .sideBar {
   display: flex;
@@ -105,6 +101,7 @@ header {
 .location {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   align-items: baseline;
   margin: 3rem 0 5rem 0;
 }
@@ -113,21 +110,34 @@ img {
   padding: 0;
 }
 @media screen and (max-width: 1024px) {
+  body {
+    background: rgb(var(--bg-rgb));
+  }
   #app {
     flex-direction: column;
+    height: 100%;
+    background: #007ab3;
   }
   main {
-    width: 100%;
     height: 100%;
   }
   header {
-    padding: 0.5rem clamp(0.5rem, 5vw, 5rem);
+    padding: 0.5rem clamp(2rem, 6vw, 5rem);
   }
   .sideBar {
-    padding: 0 clamp(0.5rem, 5vw, 5rem);
+    padding: 0 clamp(2rem, 6vw, 5rem);
+    background: linear-gradient(180deg, #007ab3 20%, rgb(var(--bg-rgb)) 100%);
   }
   .location {
     margin: 1rem 0;
+  }
+}
+@media screen and (max-width: 425px) {
+  header {
+    padding: 0.25rem;
+  }
+  .sideBar {
+    padding: 0 0.25rem;
   }
 }
 </style>

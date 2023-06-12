@@ -42,7 +42,7 @@ export default {
 }
 .backBtn {
   padding: 0.75rem 1.75rem;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   background-color: rgb(var(--bg-rgb));
   border-radius: 0.5rem;
   border: 1px solid rgb(var(--bg-rgb));
