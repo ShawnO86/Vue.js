@@ -2,9 +2,7 @@
   <div class="weatherItemsHolder">
     <sub>Click a day for more info</sub>
     <div v-for="(item, index) in weatherOutput" :key="index" class="weatherItems">
-      <div v-for="(day, index) in item" :key="index">
-        <weather-item :day="day"></weather-item>
-      </div>
+      <weather-item :day="item"></weather-item>
     </div>
   </div>
 </template>
@@ -28,8 +26,6 @@ export default {
 .weatherItemsHolder {
   width: 100%;
   margin: 0 auto;
-}
-sub {
-  margin-left: 2rem;
+  overflow-y: auto;
 }
 </style>

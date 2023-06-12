@@ -33,24 +33,24 @@ form {
   display: flex;
   flex-flow: row wrap;
   padding: 1rem 0 2rem 0;
-  width: calc(100% - 4rem);
+  width: 100%;
   gap: 0 1rem;
-  border-bottom: 1px solid var(--text-color);
+  border-bottom: 1px solid rgb(var(--text-rgb), 0.7);
 }
 
 input,
 button {
   padding: 0.75rem;
   margin-top: 0.5rem;
-  background-color: var(--bg-color);
+  background-color: rgb(var(--bg-rgb));
   border-radius: 0.5rem;
-  border: 1px solid var(--bg-color);
+  border: 1px solid rgb(var(--bg-rgb));
   color: var(--text-color);
 }
 
 input:focus,
 button:hover {
-  border: 1px solid var(--text-color);
+  border: 1px solid rgb(var(--text-rgb));
 }
 
 input {
@@ -63,7 +63,7 @@ button {
 }
 
 input::placeholder {
-  color: var(--text-color);
+  color: rgb(var(--text-rgb), 0.7);
 }
 
 label {

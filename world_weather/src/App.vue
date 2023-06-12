@@ -1,9 +1,15 @@
 <template>
   <header>
-    <h1>7-Day Weather Forcast</h1>
-    <h2 class="location">{{ currentLocation }}</h2>
-    <div v-for="(item, index) in weatherOutput.data" :key="index" class="weatherItems">
-      {{ item }}
+    <h1>Weather.forcast</h1>
+    <div class="location">
+      <div>
+        <h2>{{ currentLocation }}</h2>
+        <p>{{ todayWeather.datetime }}</p>
+      </div>
+      <div class="frontWeather">
+        <img src="https://cdn.weatherbit.io/static/img/icons/c03d.png" />
+        <p>Cloudy</p>
+      </div>
     </div>
   </header>
   <main>
@@ -22,9 +28,8 @@ export default {
   data() {
     return {
       currentLocation: '',
-      weatherOutput: [
-      ],
-      testButton: ''
+      weatherOutput: [],
+      todayWeather: {}
     }
   },
   provide() {
@@ -37,6 +42,7 @@ export default {
       .then((response) => response.json())
       .then((result) => {
         this.weatherOutput = result
+        this.todayWeather = this.weatherOutput[0]
       })
   },
   methods: {
@@ -49,10 +55,10 @@ export default {
 
 <style>
 :root {
-  --bg-color: #3c6a82;
-  --secondary-color: #24404f;
-  --text-color: #cfe5ee;
-  --pop-color: #5fa8cf;
+  --bg-rgb: 5, 42, 59;
+  --secondary-rgb: 0, 122, 179;
+  --text-rgb: 207, 229, 238;
+  --pop-rgb: 0, 174, 255;
 }
 *,
 *::before,
@@ -63,61 +69,65 @@ export default {
 }
 body {
   display: flex;
-  color: var(--text-color);
-  background: var(--bg-color);
+  color: rgb(var(--text-rgb));
+  background: linear-gradient(180deg, #007ab3 0%, #b4cfdb 100%);
   font-family: 'Segoe UI', sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  overflow: hidden;
 }
 #app {
   display: flex;
   justify-content: space-between;
   width: 100vw;
-  height: 100vh;
-  margin: 0 50px;
 }
 main {
   display: flex;
-  justify-content: right;
-  min-width: 47%;
-  margin: 0;
-  padding: 0;
+  min-width: 40%;
+  background: rgb(var(--bg-rgb), 0.7);
+  overflow: auto;
 }
 header {
-  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  padding: 0.5rem clamp(1rem, 5vw, 2rem);
 }
 .sideBar {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  background: var(--secondary-color);
   width: 100%;
-  padding: 0 0 0.5rem 0;
-  overflow-y: auto;
-  height: 100%;
+  padding: 0 clamp(0.5rem, 2.5vw, 3rem);
 }
 .location {
-  margin-top: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 3rem 0 5rem 0;
+}
+img {
+  width: 3rem;
+  padding: 0;
 }
 @media screen and (max-width: 1024px) {
-  body {
-    align-items: flex-start;
-  }
   #app {
     flex-direction: column;
-    margin: 0;
   }
   main {
     width: 100%;
     height: 100%;
-    justify-content: flex-start;
   }
   header {
-    padding: 0.5rem 4rem;
+    padding: 0.5rem clamp(0.5rem, 5vw, 5rem);
   }
   .sideBar {
-    padding: 0 2rem 1rem 2rem;
+    padding: 0 clamp(0.5rem, 5vw, 5rem);
+  }
+  .location {
+    margin: 1rem 0;
   }
 }
 </style>

@@ -23,106 +23,106 @@ app.get("/hello", (_req, res) => {
   res.json({ message: "Hello, world!" });
 });
 
-const weatherData = { //test data
-  data: [
-    {
-      datetime: "2017-04-01",
-      wind_gust_spd: 16.7,
-      wind_spd: 6.4,
-      high_temp: 30,
-      low_temp: 24.5,
-      rh: 64.3,
-      weather: {
-        icon: "c04d",
-        code: "804",
-        description: "Overcast clouds"
-      }
-    },
-    {
-      datetime: "2017-04-01",
-      wind_gust_spd: 16.7,
-      wind_spd: 6.4,
-      high_temp: 30,
-      low_temp: 24.5,
-      rh: 64.3,
-      weather: {
-        icon: "c04d",
-        code: "804",
-        description: "Overcast clouds"
-      }
-    },
-    {
-      datetime: "2017-04-01",
-      wind_gust_spd: 16.7,
-      wind_spd: 6.4,
-      high_temp: 30,
-      low_temp: 24.5,
-      rh: 64.3,
-      weather: {
-        icon: "c04d",
-        code: "804",
-        description: "Overcast clouds"
-      }
-    },
-    {
-      datetime: "2017-04-01",
-      wind_gust_spd: 16.7,
-      wind_spd: 6.4,
-      high_temp: 30,
-      low_temp: 24.5,
-      rh: 64.3,
-      weather: {
-        icon: "c04d",
-        code: "804",
-        description: "Overcast clouds"
-      }
-    },
-    {
-      datetime: "2017-04-01",
-      wind_gust_spd: 16.7,
-      wind_spd: 6.4,
-      high_temp: 30,
-      low_temp: 24.5,
-      rh: 64.3,
-      weather: {
-        icon: "c04d",
-        code: "804",
-        description: "Overcast clouds"
-      }
-    },
-    {
-      datetime: "2017-04-01",
-      wind_gust_spd: 16.7,
-      wind_spd: 6.4,
-      high_temp: 30,
-      low_temp: 24.5,
-      rh: 64.3,
-      weather: {
-        icon: "c04d",
-        code: "804",
-        description: "Overcast clouds"
-      }
-    },
-    {
-      datetime: "2017-04-01",
-      wind_gust_spd: 16.7,
-      wind_spd: 6.4,
-      high_temp: 30,
-      low_temp: 24.5,
-      rh: 64.3,
-      weather: {
-        icon: "c04d",
-        code: "804",
-        description: "Overcast clouds"
-      }
-    }     
-  ]};
-
 const port = process.env.PORT || 8081;
 
 app.listen(port, () => {
   console.log("Server listening on port", port);
 });
+
+//test data
+const weatherData = [
+  {
+    datetime: "2017-04-01",
+    wind_gust_spd: 16.7,
+    wind_spd: 6.4,
+    high_temp: 30,
+    low_temp: 24.5,
+    rh: 64.3,
+    weather: {
+      icon: "c04d",
+      code: "804",
+      description: "Overcast clouds"
+    }
+  },
+  {
+    datetime: "2017-04-01",
+    wind_gust_spd: 16.7,
+    wind_spd: 6.4,
+    high_temp: 30,
+    low_temp: 24.5,
+    rh: 64.3,
+    weather: {
+      icon: "c04d",
+      code: "804",
+      description: "Overcast clouds"
+    }
+  },
+  {
+    datetime: "2017-04-01",
+    wind_gust_spd: 16.7,
+    wind_spd: 6.4,
+    high_temp: 30,
+    low_temp: 24.5,
+    rh: 64.3,
+    weather: {
+      icon: "c04d",
+      code: "804",
+      description: "Overcast clouds"
+    }
+  },
+  {
+    datetime: "2017-04-01",
+    wind_gust_spd: 16.7,
+    wind_spd: 6.4,
+    high_temp: 30,
+    low_temp: 24.5,
+    rh: 64.3,
+    weather: {
+      icon: "c04d",
+      code: "804",
+      description: "Overcast clouds"
+    }
+  },
+  {
+    datetime: "2017-04-01",
+    wind_gust_spd: 16.7,
+    wind_spd: 6.4,
+    high_temp: 30,
+    low_temp: 24.5,
+    rh: 64.3,
+    weather: {
+      icon: "c04d",
+      code: "804",
+      description: "Overcast clouds"
+    }
+  },
+  {
+    datetime: "2017-04-01",
+    wind_gust_spd: 16.7,
+    wind_spd: 6.4,
+    high_temp: 30,
+    low_temp: 24.5,
+    rh: 64.3,
+    weather: {
+      icon: "c04d",
+      code: "804",
+      description: "Overcast clouds"
+    }
+  },
+  {
+    datetime: "2017-04-01",
+    wind_gust_spd: 16.7,
+    wind_spd: 6.4,
+    high_temp: 30,
+    low_temp: 24.5,
+    rh: 64.3,
+    weather: {
+      icon: "c04d",
+      code: "804",
+      description: "Overcast clouds"
+    }
+  }
+];
 
 app.get('/data', async (req, res) => {
   try {

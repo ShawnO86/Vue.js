@@ -19,14 +19,18 @@ export default {
 }
 </script>
 <style scoped>
+h4 {
+  width: 100%;
+  margin-top: 2rem;
+}
 .defaultLocations {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  width: calc(100% - 4rem);
+  width: 100%;
   padding: 3rem 0;
   gap: 1rem;
-  border-bottom: 1px solid var(--text-color);
+  border-bottom: 1px solid rgb(var(--text-rgb), 0.7);
 }
 .locationBtn {
   background: none;
@@ -36,6 +40,6 @@ export default {
   padding: 0.5rem 0;
 }
 .locationBtn:hover {
-  color: var(--pop-color);
+  color: rgb(var(--pop-rgb));
 }
 </style>

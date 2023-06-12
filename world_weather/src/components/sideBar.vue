@@ -5,7 +5,7 @@
     <div class="btnAlign">
       <button @click="currentLocation = ''" class="backBtn">&lt; Back</button>
     </div>
-    <weather-display :weatherOutput="weatherData"/>
+    <weather-display :weatherOutput="weatherData" />
   </div>
   <default-locations v-else @location="getInput"></default-locations>
 </template>
@@ -38,19 +38,19 @@ export default {
   
   <style scoped>
 .btnAlign {
-  width: calc(100% - 4rem);
-  margin: 0 auto;
-  text-align: right;
+  width: 100%;
 }
 .backBtn {
-  background: none;
-  border: none;
+  padding: 0.75rem 1.75rem;
+  margin-top: 0.5rem;
+  background-color: rgb(var(--bg-rgb));
+  border-radius: 0.5rem;
+  border: 1px solid rgb(var(--bg-rgb));
   color: var(--text-color);
-  cursor: pointer;
-  padding: 1rem 0;
 }
-.backBtn:hover {
-  color: var(--pop-color);
+.backBtn:hover,
+.backBtn:focus {
+  border: 1px solid rgb(var(--text-rgb));
 }
 .weatherDisplay {
   display: flex;
