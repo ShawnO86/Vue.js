@@ -27,6 +27,9 @@ app.get("/hello", (_req, res) => {
 });
 
 const port = process.env.PORT || 8081;
+const iconURL = (icon) => {
+  return "https://cdn.weatherbit.io/static/img/icons/" + icon + ".png";
+};
 
 app.listen(port, () => {
   console.log("Server listening on port", port);
@@ -42,7 +45,7 @@ const weatherData = [
     low_temp: 24.5,
     rh: 64.3,
     weather: {
-      icon: "c04d",
+      icon: iconURL("c03d"),
       code: "804",
       description: "Overcast clouds"
     }
@@ -55,7 +58,7 @@ const weatherData = [
     low_temp: 24.5,
     rh: 64.3,
     weather: {
-      icon: "c04d",
+      icon: iconURL("c03d"),
       code: "804",
       description: "Overcast clouds"
     }
@@ -68,7 +71,7 @@ const weatherData = [
     low_temp: 24.5,
     rh: 64.3,
     weather: {
-      icon: "c04d",
+      icon: iconURL("c03d"),
       code: "804",
       description: "Overcast clouds"
     }
@@ -81,7 +84,7 @@ const weatherData = [
     low_temp: 24.5,
     rh: 64.3,
     weather: {
-      icon: "c04d",
+      icon: iconURL("c03d"),
       code: "804",
       description: "Overcast clouds"
     }
@@ -94,7 +97,7 @@ const weatherData = [
     low_temp: 24.5,
     rh: 64.3,
     weather: {
-      icon: "c04d",
+      icon: iconURL("c03d"),
       code: "804",
       description: "Overcast clouds"
     }
@@ -107,7 +110,7 @@ const weatherData = [
     low_temp: 24.5,
     rh: 64.3,
     weather: {
-      icon: "c04d",
+      icon: iconURL("c03d"),
       code: "804",
       description: "Overcast clouds"
     }
@@ -120,7 +123,7 @@ const weatherData = [
     low_temp: 24.5,
     rh: 64.3,
     weather: {
-      icon: "c04d",
+      icon: iconURL("c03d"),
       code: "804",
       description: "Overcast clouds"
     }

@@ -3,11 +3,14 @@
     <h1>Weather.forcast</h1>
     <div class="location" v-if="todayWeather.weather && currentLocation">
       <div class="frontLocation">
-        <h2>{{ currentLocation }} - {{ todayWeather.high_temp }}&deg; F</h2>
+        <h2>
+          {{ currentLocation }} - {{ todayWeather.high_temp }}&deg;H /
+          {{ todayWeather.low_temp }}&deg;L
+        </h2>
         <p>{{ todayWeather.datetime }}</p>
       </div>
-      <div class="frontWeather" >
-        <img src="https://cdn.weatherbit.io/static/img/icons/c03d.png" />
+      <div class="frontWeather">
+        <img :src="todayWeather.weather.icon" />
         <p>{{ todayWeather.weather.description }}</p>
       </div>
     </div>
@@ -101,14 +104,17 @@ header {
 }
 .location {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  flex-wrap: wrap;
   margin: 3rem 0 50vh 0;
+}
+h1 {
+  font-size: 1.5rem;
 }
 h2 {
   font-size: 2rem;
 }
-.frontLocation{
+.frontLocation {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -116,11 +122,10 @@ h2 {
 .frontWeather {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  margin-top: 1rem;
 }
 img {
   width: 3rem;
-  padding: 0;
 }
 @media screen and (max-width: 1024px) {
   body {
@@ -143,12 +148,35 @@ img {
   }
   .location {
     margin: 1rem 0;
+    flex-direction: row;
   }
+  .frontWeather {
+    align-items: flex-end;
+  }
+  .frontLocation {
+  justify-content: center;
+}
+}
+@media screen and (max-width: 768px) {
+  h2 {
+    font-size: 1rem;
+  }
+  img {
+  width: 2.5rem;
+}
 }
 @media screen and (max-width: 425px) {
   header {
     padding: 0.25rem;
   }
+  h1 {
+    text-align: center;
+  }
+  .location {
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
   .sideBar {
     padding: 0 0.25rem;
   }

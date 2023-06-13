@@ -5,7 +5,7 @@
         <p>{{ day.datetime }}</p>
       </div>
       <div class="secondGroup">
-        <img src="https://cdn.weatherbit.io/static/img/icons/c03d.png" />
+        <img :src="day.weather.icon" />
       </div>
     </summary>
     <div class="weatherDetails">
