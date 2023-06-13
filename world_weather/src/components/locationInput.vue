@@ -10,6 +10,7 @@
     />
     <button>Go</button>
   </form>
+  <p v-if="locationError">{{ locationError }}</p>
 </template>
 
 <script>
@@ -17,12 +18,21 @@ export default {
   emits: ['location'],
   data() {
     return {
-      locationInput: ''
+      locationInput: '',
+      locationError: ''
     }
   },
   methods: {
     sendInput() {
-      this.$emit('location', this.locationInput)
+      if (!this.locationInput) {
+        this.locationError = 'Must input (City, State) or Zipcode!'
+        setTimeout(() => {
+          this.locationError = ''
+        }, 4000)
+      } else {
+        this.locationError = ''
+        this.$emit('location', this.locationInput)
+      }
     }
   }
 }

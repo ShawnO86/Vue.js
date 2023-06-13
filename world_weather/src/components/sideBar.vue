@@ -3,7 +3,7 @@
 
   <div v-if="currentLocation" class="weatherDisplay">
     <div class="btnAlign">
-      <button @click="currentLocation = ''" class="backBtn">&lt; Back</button>
+      <button @click="getInput('')" class="backBtn">&lt; Back</button>
     </div>
     <weather-display :weatherOutput="weatherData" />
   </div>

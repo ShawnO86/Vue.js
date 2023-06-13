@@ -13,6 +13,9 @@ dotenv.config();
 app.use(morgan('tiny'));
 app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(express.static(__dirname + '/dist'));
 
 app.get('/', (req, res) => {
@@ -124,7 +127,7 @@ const weatherData = [
   }
 ];
 
-app.get('/data', async (req, res) => {
+app.get('/test_data', async (req, res) => {
   try {
     res.send(weatherData);
   } catch (e) {

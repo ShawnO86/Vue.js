@@ -1,14 +1,14 @@
 <template>
   <header>
     <h1>Weather.forcast</h1>
-    <div class="location">
-      <div>
-        <h2>{{ currentLocation }}</h2>
+    <div class="location" v-if="todayWeather.weather && currentLocation">
+      <div class="frontLocation">
+        <h2>{{ currentLocation }} - {{ todayWeather.high_temp }}&deg; F</h2>
         <p>{{ todayWeather.datetime }}</p>
       </div>
-      <div class="frontWeather">
+      <div class="frontWeather" >
         <img src="https://cdn.weatherbit.io/static/img/icons/c03d.png" />
-        <p>Cloudy</p>
+        <p>{{ todayWeather.weather.description }}</p>
       </div>
     </div>
   </header>
@@ -38,7 +38,7 @@ export default {
     }
   },
   mounted() {
-    fetch('http://localhost:8081/data')
+    fetch('http://localhost:8081/test_data')
       .then((response) => response.json())
       .then((result) => {
         this.weatherOutput = result
@@ -82,13 +82,13 @@ body {
 }
 main {
   display: flex;
-  min-width: 50%;
+  min-width: 45%;
   background: rgb(var(--bg-rgb), 0.7);
 }
 header {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
   padding: 0.5rem clamp(1rem, 5vw, 3rem);
 }
@@ -97,13 +97,26 @@ header {
   flex-direction: column;
   width: 100%;
   padding: 0 clamp(0.5rem, 2.5vw, 3rem);
+  overflow: auto;
 }
 .location {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  align-items: baseline;
-  margin: 3rem 0 5rem 0;
+  margin: 3rem 0 50vh 0;
+}
+h2 {
+  font-size: 2rem;
+}
+.frontLocation{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.frontWeather {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 img {
   width: 3rem;
