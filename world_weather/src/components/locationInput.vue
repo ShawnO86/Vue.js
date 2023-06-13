@@ -8,7 +8,7 @@
       v-model="locationInput"
       placeholder="(City, State) or Zipcode"
     />
-    <button>Go</button>
+    <button>Get Weather</button>
   </form>
   <p v-if="locationError">{{ locationError }}</p>
 </template>

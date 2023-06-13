@@ -1,23 +1,23 @@
 <template>
   <header>
     <h1>Weather.forcast</h1>
-    <div class="location" v-if="todayWeather.weather && currentLocation">
+    <div class="location" v-if="weatherOutput && currentLocation && todayWeather.iconDesc">
       <div class="frontLocation">
         <h2>
-          {{ currentLocation }} - {{ todayWeather.high_temp }}&deg;H /
-          {{ todayWeather.low_temp }}&deg;L
+          {{ currentLocation }} - {{ todayWeather.low_temp }}&deg;F /
+          {{ todayWeather.high_temp }}&deg;F
         </h2>
-        <p>{{ todayWeather.datetime }}</p>
+        <p>{{ todayWeather.date }}</p>
       </div>
       <div class="frontWeather">
-        <img :src="todayWeather.weather.icon" />
-        <p>{{ todayWeather.weather.description }}</p>
+        <img :src="todayWeather.iconDesc.icon" class="frontIcon" />
+        <p>{{ todayWeather.iconDesc.description }}</p>
       </div>
     </div>
   </header>
   <main>
     <section class="sideBar">
-      <side-bar @location="getInput" :weather-data="weatherOutput"></side-bar>
+      <side-bar @location="getWeather" :weather-data="weatherOutput"></side-bar>
     </section>
   </main>
 </template>
@@ -30,8 +30,7 @@ export default {
   },
   data() {
     return {
-      currentLocation: '',
-      weatherOutput: [],
+      weatherOutput: {},
       todayWeather: {}
     }
   },
@@ -40,17 +39,22 @@ export default {
       weatherOutput: this.weatherOutput
     }
   },
-  mounted() {
-    fetch('http://localhost:8081/test_data')
-      .then((response) => response.json())
-      .then((result) => {
-        this.weatherOutput = result
-        this.todayWeather = this.weatherOutput[0]
-      })
+  computed: {
+    currentLocation() {
+      return this.weatherOutput.name + ', ' + this.weatherOutput.local
+    }
   },
   methods: {
-    getInput(location) {
-      this.currentLocation = location
+    getWeather() {
+      fetch('http://localhost:8081/test_data')
+        // fetch('http://localhost:8081/data/' + location)
+        .then((response) => response.json())
+        .then((result) => {
+          this.weatherOutput = result
+          console.log('project data : ' + this.weatherOutput)
+          this.todayWeather = this.weatherOutput.forcast[0]
+          console.log('today : ' + this.todayWeather)
+        })
     }
   }
 }
@@ -85,15 +89,14 @@ body {
 }
 main {
   display: flex;
-  min-width: 45%;
-  background: rgb(var(--bg-rgb), 0.7);
+  min-width: 44vw;
+  background: rgb(var(--bg-rgb), 0.5);
 }
 header {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  padding: 0.5rem clamp(1rem, 5vw, 3rem);
 }
 .sideBar {
   display: flex;
@@ -104,12 +107,14 @@ header {
 }
 .location {
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
   margin: 3rem 0 50vh 0;
+  background: rgba(var(--text-rgb), 0.1);
+  padding: 0.5rem clamp(1rem, 5vw, 3rem);
 }
 h1 {
   font-size: 1.5rem;
+  padding: 0.5rem clamp(1rem, 5vw, 3rem);
 }
 h2 {
   font-size: 2rem;
@@ -122,10 +127,23 @@ h2 {
 .frontWeather {
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
   margin-top: 1rem;
+}
+.frontIcon {
+  width: 4rem;
 }
 img {
   width: 3rem;
+  margin-bottom: -0.5rem;
+}
+@media screen and (max-width: 1440px) {
+  .location {
+    flex-direction: column;
+  }
+  .frontWeather {
+    align-items: flex-start;
+  }
 }
 @media screen and (max-width: 1024px) {
   body {
@@ -140,15 +158,20 @@ img {
     height: 100%;
   }
   header {
-    padding: 0.5rem clamp(2rem, 6vw, 5rem);
+    padding: 0.5rem clamp(2rem, 6vw, 5rem) 0 clamp(2rem, 6vw, 5rem);
   }
   .sideBar {
     padding: 0 clamp(2rem, 6vw, 5rem);
-    background: linear-gradient(180deg, #007ab3 20%, rgb(var(--bg-rgb)) 100%);
+    background: linear-gradient(180deg, #007ab3 0%, rgb(var(--bg-rgb)) 80%);
+  }
+  h1 {
+    padding: 0.25rem 0;
   }
   .location {
-    margin: 1rem 0;
+    margin: 0.5rem 0;
     flex-direction: row;
+    padding: 0.5rem 0;
+    background: none;
   }
   .frontWeather {
     align-items: flex-end;
@@ -164,8 +187,14 @@ img {
   img {
     width: 2.5rem;
   }
+  .frontIcon {
+    width: 3rem;
+  }
 }
 @media screen and (max-width: 425px) {
+  body {
+    font-size: 12px;
+  }
   header {
     padding: 0.25rem;
   }
@@ -176,7 +205,9 @@ img {
     flex-wrap: wrap;
     justify-content: space-around;
   }
-
+  img {
+    width: 2rem;
+  }
   .sideBar {
     padding: 0 0.25rem;
   }
