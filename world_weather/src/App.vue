@@ -154,16 +154,16 @@ img {
     align-items: flex-end;
   }
   .frontLocation {
-  justify-content: center;
-}
+    justify-content: center;
+  }
 }
 @media screen and (max-width: 768px) {
   h2 {
     font-size: 1rem;
   }
   img {
-  width: 2.5rem;
-}
+    width: 2.5rem;
+  }
 }
 @media screen and (max-width: 425px) {
   header {

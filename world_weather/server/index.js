@@ -5,10 +5,17 @@ import morgan from 'morgan';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
+const fetch = (...args) =>
+  import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
+const port = process.env.PORT || 8081;
+const iconURL = (icon) => {
+  return "https://cdn.weatherbit.io/static/img/icons/" + icon + ".png";
+};
+
 dotenv.config();
 app.use(morgan('tiny'));
 app.use(cors());
@@ -26,16 +33,11 @@ app.get("/hello", (_req, res) => {
   res.json({ message: "Hello, world!" });
 });
 
-const port = process.env.PORT || 8081;
-const iconURL = (icon) => {
-  return "https://cdn.weatherbit.io/static/img/icons/" + icon + ".png";
-};
-
 app.listen(port, () => {
   console.log("Server listening on port", port);
 });
 
-//test data
+// --------- test data
 const weatherData = [
   {
     datetime: "2017-04-01",
@@ -129,6 +131,8 @@ const weatherData = [
     }
   }
 ];
+const geoKey = process.env.geonames_key;
+const weatherBitKey = process.env.weatherbit_key;
 
 app.get('/test_data', async (req, res) => {
   try {
@@ -137,3 +141,4 @@ app.get('/test_data', async (req, res) => {
     console.log("error", e);
   }
 });
+
