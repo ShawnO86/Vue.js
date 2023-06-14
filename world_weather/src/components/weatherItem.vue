@@ -2,9 +2,9 @@
   <details>
     <summary>
       <div class="firstGroup">
-        <p>{{ currentDay(day.date) }}</p>
+        <p>{{ day.day }}</p>
         <p>{{ day.date }}</p>
-      </div>      
+      </div>
       <p>{{ day.low_temp }}&deg;F / {{ day.high_temp }}&deg;F</p>
       <figure class="secondGroup">
         <img :src="day.iconDesc.icon" alt="weather icon" />
@@ -12,13 +12,15 @@
       </figure>
     </summary>
     <div class="weatherDetails">
-      <!-- add probability of precipitation % -->
-      <p>Chance of Rain: <span>%</span></p>
-      <!-- add cloud coverage %-->
-      <p>Cloud Coverage: <span>%</span></p>
-      <p>Relative Humidity: <span>{{ day.humidity }}</span></p>
+      <p>Chance of Rain: <span>{{ day.rain_chance }}</span></p>
+      <p>Cloud Coverage: <span>{{ day.clouds }}</span></p>
+      <p>
+        Relative Humidity: <span>{{ day.humidity }}</span>
+      </p>
       <!-- add wind direction -->
-      <p>Wind Speeds: <span>{{ day.wind_speed }} / {{ day.wind_gusts }} Dir</span></p>
+      <p>
+        Wind Speeds: <span>{{ day.wind_speed }} / {{ day.wind_gusts }} {{ day.wind_dir }}</span>
+      </p>
       <!-- add uv index -->
       <p>UV Index: <span>N</span></p>
       <!-- add sunrise/sunset-->
@@ -28,40 +30,14 @@
 </template>
   
   <script>
-const currentDayTime = new Date()
-const now = currentDayTime.getHours()
-const m = currentDayTime.getMinutes()
 export default {
   props: ['day'],
-  methods: {
-    currentDay(date) {
-      const d = new Date(`${date}, ${now}:${m}`)
-      const day = d.getDay()
-      switch (day) {
-        case 0:
-          return 'Sunday'
-        case 1:
-          return 'Monday'
-        case 2:
-          return 'Tuesday'
-        case 3:
-          return 'Wednesday'
-        case 4:
-          return 'Thursday'
-        case 5:
-          return 'Friday'
-        case 6:
-          return 'Saturday'
-      }
-    }
-  }
 }
 </script>
   
   <style scoped>
 details {
   padding: 0.5rem 0;
-
 }
 .weatherDetails {
   padding: 1rem 0;

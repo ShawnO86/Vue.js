@@ -41,7 +41,7 @@ export default {
 <style scoped>
 form {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: wrap;
   padding: 1rem 0;
   width: 100%;
   gap: 0 1rem;

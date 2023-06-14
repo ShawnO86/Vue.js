@@ -1,6 +1,6 @@
 <template>
   <location-input @location="getInput"></location-input>
-  <div v-if="currentLocation" class="weatherDisplay">
+  <div v-if="weatherData" class="weatherDisplay">
     <weather-display :weatherOutput="weatherData" />
   </div>
 </template>

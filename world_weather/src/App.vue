@@ -1,13 +1,13 @@
 <template>
   <header>
     <h1>Weather.forcast</h1>
-    <div class="location" v-if="weatherOutput && currentLocation && todayWeather.iconDesc">
+    <div class="location" v-if="todayWeather && todayWeather.iconDesc">
       <div class="frontLocation">
         <h2>
           {{ currentLocation }} - {{ todayWeather.low_temp }}&deg;F /
           {{ todayWeather.high_temp }}&deg;F
         </h2>
-        <p>{{ todayWeather.date }}</p>
+        <p>{{ todayWeather.day }} - {{ todayWeather.date }}</p>
       </div>
       <div class="frontWeather">
         <img :src="todayWeather.iconDesc.icon" class="frontIcon" />
@@ -24,6 +24,19 @@
 
 <script>
 import SideBar from './components/sideBar.vue'
+
+const getData = async (url = '') => {
+  //calls argument url and waits for data/status
+  const req = await fetch(url)
+  try {
+    //return api data in JSON
+    const data = await req.json()
+    return data
+  } catch (e) {
+    console.log('error', e)
+  }
+}
+
 export default {
   components: {
     SideBar
@@ -45,16 +58,11 @@ export default {
     }
   },
   methods: {
-    getWeather() {
-      fetch('http://localhost:8081/test_data')
-        // fetch('http://localhost:8081/data/' + location)
-        .then((response) => response.json())
-        .then((result) => {
-          this.weatherOutput = result
-          console.log('project data : ' + this.weatherOutput)
-          this.todayWeather = this.weatherOutput.forcast[0]
-          console.log('today : ' + this.todayWeather)
-        })
+    async getWeather(/* location */) {
+      const data = await getData('http://localhost:8081/test_data')
+      //const data = await getData('http://localhost:8081/data/' + location)
+      this.weatherOutput = data
+      this.todayWeather = data.forcast[0]
     }
   }
 }
@@ -159,10 +167,12 @@ img {
   }
   header {
     padding: 0.5rem clamp(2rem, 6vw, 5rem) 0 clamp(2rem, 6vw, 5rem);
+    flex: 0;
   }
   .sideBar {
     padding: 0 clamp(2rem, 6vw, 5rem);
     background: linear-gradient(180deg, #007ab3 0%, rgb(var(--bg-rgb)) 80%);
+    overflow-y: auto;
   }
   h1 {
     padding: 0.25rem 0;
