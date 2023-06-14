@@ -30,7 +30,8 @@
       </p>
       <!-- add sunrise/sunset-->
       <p>
-        Sunrise/Sunset: <span>{{ convertTimeToLocal(day.sunrise) }} / {{ convertTimeToLocal(day.sunset) }}</span>
+        Sunrise/Sunset:
+        <span>{{ convertTimeToLocal(day.sunrise) }} / {{ convertTimeToLocal(day.sunset) }}</span>
       </p>
     </div>
   </details>
@@ -41,17 +42,10 @@ export default {
   props: ['day'],
   methods: {
     convertTimeToLocal(time) {
-      //const utcTime = new Date(time);
-      const localTimeZone = new Date(time).toLocaleString('en', { timeZoneName: 'long' });
-      console.log(localTimeZone)
-/*       const localTime = utcTime.toLocaleString('en-US', {
-    timeZone: localTimeZone, // Replace with your desired time zone
-    hour12: true,
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric'
-  });
-      return localTime; */
+      const localTimeZone = new Date(time)
+        .toLocaleString('en', { timeZoneName: 'short' })
+        .split(' ')
+      return `${localTimeZone[1]} ${localTimeZone[2]}`
     }
   }
 }
