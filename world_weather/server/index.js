@@ -60,8 +60,9 @@ const dayMonth = (date) => {
 }
 
 const timeStampToReadable = (timestamp) => {
-  const time = new Date(timestamp * 1000);
-  return time.toLocaleTimeString("en-US");
+  const ts = new Date(timestamp * 1000);  
+  const time = ts.toLocaleTimeString();
+  return time;
 }
 
 // --------- test data
@@ -183,6 +184,7 @@ const weatherData =
 
 app.get('/test_data', async (req, res) => {
   try {
+    console.log(weatherData)
     res.send(weatherData);
   } catch (e) {
     console.log("error", e);
