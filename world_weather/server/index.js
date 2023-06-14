@@ -60,19 +60,12 @@ const dayMonth = (date) => {
 }
 
 const timeStampToReadable = (timestamp) => {
-  const options = {
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
-    timeZone: 'UTC'
-  };
-  const ts = new Date(timestamp);  
-  const time = ts.toLocaleTimeString("en-US", options);
-  return time;
+  const ts = new Date(timestamp * 1000);  
+  return ts;
 }
 
 // --------- test data
-/* const weatherData =
+ /* const weatherData =
 {
   long: '-87.65005',
   lat: '41.85003',
@@ -195,7 +188,8 @@ app.get('/test_data', async (req, res) => {
   } catch (e) {
     console.log("error", e);
   }
-}); */
+}); 
+ */
 
 app.get('/data/:city', async (req, res) => {
   await getGeoData(req);

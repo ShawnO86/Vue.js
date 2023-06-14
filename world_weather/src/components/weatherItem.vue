@@ -5,7 +5,7 @@
         <p>{{ day.day }}, {{ day.date }}</p>
         <p class="temp">{{ day.low_temp }}&deg;F / {{ day.high_temp }}&deg;F</p>
       </div>
-     
+
       <figure class="secondGroup">
         <img :src="day.iconDesc.icon" alt="weather icon" />
         <figcaption>{{ day.iconDesc.description }}</figcaption>
@@ -22,18 +22,38 @@
         Relative Humidity: <span>{{ day.humidity }}</span>
       </p>
       <p>
-        Wind Speeds: <sub>Avg/Max/Dir</sub> <span>{{ day.wind_speed }} / {{ day.wind_gusts }} {{ day.wind_dir }}</span>
+        Wind Speeds: <sub>Avg/Max/Dir</sub>
+        <span>{{ day.wind_speed }} / {{ day.wind_gusts }} {{ day.wind_dir }}</span>
       </p>
-      <p>UV Index: <span>{{ day.uv }}</span></p>
+      <p>
+        UV Index: <span>{{ day.uv }}</span>
+      </p>
       <!-- add sunrise/sunset-->
-      <p>Sunrise/Sunset: <span>{{ day.sunrise }} / {{ day.sunset }}</span></p>
+      <p>
+        Sunrise/Sunset: <span>{{ convertTimeToLocal(day.sunrise) }} / {{ convertTimeToLocal(day.sunset) }}</span>
+      </p>
     </div>
   </details>
 </template>
   
   <script>
 export default {
-  props: ['day']
+  props: ['day'],
+  methods: {
+    convertTimeToLocal(time) {
+      //const utcTime = new Date(time);
+      const localTimeZone = new Date(time).toLocaleString('en', { timeZoneName: 'long' });
+      console.log(localTimeZone)
+/*       const localTime = utcTime.toLocaleString('en-US', {
+    timeZone: localTimeZone, // Replace with your desired time zone
+    hour12: true,
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric'
+  });
+      return localTime; */
+    }
+  }
 }
 </script>
   
