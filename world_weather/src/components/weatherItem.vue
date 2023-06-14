@@ -2,36 +2,38 @@
   <details>
     <summary>
       <div class="firstGroup">
-        <p>{{ day.day }}</p>
-        <p>{{ day.date }}</p>
+        <p>{{ day.day }}, {{ day.date }}</p>
+        <p class="temp">{{ day.low_temp }}&deg;F / {{ day.high_temp }}&deg;F</p>
       </div>
-      <p>{{ day.low_temp }}&deg;F / {{ day.high_temp }}&deg;F</p>
+     
       <figure class="secondGroup">
         <img :src="day.iconDesc.icon" alt="weather icon" />
         <figcaption>{{ day.iconDesc.description }}</figcaption>
       </figure>
     </summary>
     <div class="weatherDetails">
-      <p>Chance of Rain: <span>{{ day.rain_chance }}</span></p>
-      <p>Cloud Coverage: <span>{{ day.clouds }}</span></p>
+      <p>
+        Chance of Rain: <span>{{ day.rain_chance }}</span>
+      </p>
+      <p>
+        Cloud Coverage: <span>{{ day.clouds }}</span>
+      </p>
       <p>
         Relative Humidity: <span>{{ day.humidity }}</span>
       </p>
-      <!-- add wind direction -->
       <p>
-        Wind Speeds: <span>{{ day.wind_speed }} / {{ day.wind_gusts }} {{ day.wind_dir }}</span>
+        Wind Speeds: <sub>Avg/Max/Dir</sub> <span>{{ day.wind_speed }} / {{ day.wind_gusts }} {{ day.wind_dir }}</span>
       </p>
-      <!-- add uv index -->
-      <p>UV Index: <span>N</span></p>
+      <p>UV Index: <span>{{ day.uv }}</span></p>
       <!-- add sunrise/sunset-->
-      <p>Sunrise/Sunset: <span>rise/set</span></p>
+      <p>Sunrise/Sunset: <span>{{ day.sunrise }} / {{ day.sunset }}</span></p>
     </div>
   </details>
 </template>
   
   <script>
 export default {
-  props: ['day'],
+  props: ['day']
 }
 </script>
   
@@ -54,10 +56,11 @@ summary {
   padding: 0 0.75rem;
   cursor: pointer;
 }
-summary:hover {
+summary:hover,
+summary:focus {
   outline: none;
   color: rgb(var(--pop-rgb));
-  background-color: rgba(var(--bg-rgb), 0.25);
+  background-color: rgba(var(--bg-rgb), 0.5);
   border: 1px solid rgba(var(--pop-rgb), 0.25);
 }
 .firstGroup {
@@ -76,9 +79,12 @@ summary:hover {
 .weatherDetails p {
   display: flex;
   justify-content: space-between;
-  background: rgba(var(--bg-rgb), 0.15);
+  background: rgba(var(--secondary-rgb), 0.1);
   margin-bottom: 0.25rem;
   padding: 0.25rem 0.75rem;
   border-radius: 0.25rem;
+}
+span {
+  font-weight: 500;
 }
 </style>

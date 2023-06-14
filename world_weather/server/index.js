@@ -59,6 +59,11 @@ const dayMonth = (date) => {
   return `${month} ${d.getDate()}`;
 }
 
+const timeStampToReadable = (timestamp) => {
+  const time = new Date(timestamp * 1000);
+  return time.toLocaleTimeString("en-US");
+}
+
 // --------- test data
 const weatherData =
 {
@@ -79,6 +84,8 @@ const weatherData =
       rain_chance: "25%",
       clouds: "41%",
       wind_dir: "NE",
+      sunrise: timeStampToReadable('1530321260'),
+      sunset: timeStampToReadable('1530391260'),
       iconDesc: { icon: iconURL("c04d"), description: "Overcast clouds" }
     },
     {
@@ -92,6 +99,8 @@ const weatherData =
       rain_chance: "25%",
       clouds: "41%",
       wind_dir: "NE",
+      sunrise: timeStampToReadable('1530321260'),
+      sunset: timeStampToReadable('1530391260'),
       iconDesc: { icon: iconURL("c04d"), description: "Overcast clouds" }
     },
     {
@@ -105,6 +114,8 @@ const weatherData =
       rain_chance: "25%",
       clouds: "41%",
       wind_dir: "NE",
+      sunrise: timeStampToReadable('1530321260'),
+      sunset: timeStampToReadable('1530391260'),
       iconDesc: { icon: iconURL("c04d"), description: "Overcast clouds" }
     },
     {
@@ -118,6 +129,8 @@ const weatherData =
       rain_chance: "25%",
       clouds: "41%",
       wind_dir: "NE",
+      sunrise: timeStampToReadable('1530321260'),
+      sunset: timeStampToReadable('1530391260'),
       iconDesc: { icon: iconURL("c04d"), description: "Overcast clouds" }
     },
     {
@@ -131,6 +144,8 @@ const weatherData =
       rain_chance: "25%",
       clouds: "41%",
       wind_dir: "NE",
+      sunrise: timeStampToReadable('1530321260'),
+      sunset: timeStampToReadable('1530391260'),
       iconDesc: { icon: iconURL("c04d"), description: "Overcast clouds" }
     },
     {
@@ -144,6 +159,8 @@ const weatherData =
       rain_chance: "25%",
       clouds: "41%",
       wind_dir: "NE",
+      sunrise: timeStampToReadable('1530321260'),
+      sunset: timeStampToReadable('1530391260'),
       iconDesc: { icon: iconURL("c04d"), description: "Overcast clouds" }
     },
     {
@@ -157,6 +174,8 @@ const weatherData =
       rain_chance: "25%",
       clouds: "41%",
       wind_dir: "NE",
+      sunrise: timeStampToReadable('1530321260'),
+      sunset: timeStampToReadable('1530391260'),
       iconDesc: { icon: iconURL("c04d"), description: "Overcast clouds" }
     }
   ]
@@ -221,8 +240,12 @@ const getForcastArr = async (lat, long) => {
           humidity: element.rh + "%",
           wind_speed: element.wind_spd + "MPH",
           wind_gusts: element.wind_gust_spd + "MPH",
+          wind_dir: element.wind_cdir,
           rain_chance: element.pop + "%",
           clouds: element.clouds + "%",
+          uv: element.uv,
+          sunrise: timeStampToReadable(element.sunrise_ts),
+          sunset: timeStampToReadable(element.sunset_ts),
           iconDesc: { icon: iconURL(element.weather.icon), description: element.weather.description }
         })
       });

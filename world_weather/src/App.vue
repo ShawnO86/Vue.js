@@ -7,10 +7,10 @@
           {{ currentLocation }} - {{ todayWeather.low_temp }}&deg;F /
           {{ todayWeather.high_temp }}&deg;F
         </h2>
-        <p>{{ todayWeather.day }} - {{ todayWeather.date }}</p>
+        <p>{{ todayWeather.day }}, {{ todayWeather.date }}</p>
       </div>
       <div class="frontWeather">
-        <img :src="todayWeather.iconDesc.icon" class="frontIcon" />
+        <img :src="todayWeather.iconDesc.icon" class="frontIcon" alt="weather icon"/>
         <p>{{ todayWeather.iconDesc.description }}</p>
       </div>
     </div>
@@ -58,9 +58,9 @@ export default {
     }
   },
   methods: {
-    async getWeather(/* location */) {
-      const data = await getData('http://localhost:8081/test_data')
-      //const data = await getData('http://localhost:8081/data/' + location)
+    async getWeather(location) {
+      //const data = await getData('http://localhost:8081/test_data')
+      const data = await getData('http://localhost:8081/data/' + location)
       this.weatherOutput = data
       this.todayWeather = data.forcast[0]
     }
@@ -98,7 +98,7 @@ body {
 main {
   display: flex;
   min-width: 44vw;
-  background: rgb(var(--bg-rgb), 0.5);
+
 }
 header {
   display: flex;
@@ -111,13 +111,14 @@ header {
   flex-direction: column;
   width: 100%;
   padding: 0 clamp(0.5rem, 2.5vw, 3rem);
+  background: rgb(var(--bg-rgb), 0.5);
   overflow: auto;
 }
 .location {
   display: flex;
   justify-content: space-between;
   margin: 3rem 0 50vh 0;
-  background: rgba(var(--text-rgb), 0.1);
+  background: rgba(var(--bg-rgb), 0.5);
   padding: 0.5rem clamp(1rem, 5vw, 3rem);
 }
 h1 {
