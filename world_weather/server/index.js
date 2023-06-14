@@ -60,7 +60,16 @@ const dayMonth = (date) => {
 }
 
 const timeStampToReadable = (timestamp) => {
-  const options = { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone }
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    hour12: false,
+    timeZone: 'UTC'
+  };
   const ts = new Date(timestamp * 1000);  
   const time = ts.toLocaleTimeString("en-US", options);
   return time;
