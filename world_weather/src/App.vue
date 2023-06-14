@@ -60,7 +60,8 @@ export default {
   methods: {
     async getWeather(location) {
       //const data = await getData('http://localhost:8081/test_data')
-      const data = await getData('http://localhost:8081/data/' + location)
+      //const data = await getData('http://localhost:8081/data/' + location)
+      const data = await getData('https://weather-app-e871.onrender.com/data/' + location)
       this.weatherOutput = data
       this.todayWeather = data.forcast[0]
     }
