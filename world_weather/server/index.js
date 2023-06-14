@@ -65,7 +65,7 @@ const timeStampToReadable = (timestamp) => {
 }
 
 // --------- test data
- /* const weatherData =
+/*  const weatherData =
 {
   long: '-87.65005',
   lat: '41.85003',

@@ -14,6 +14,7 @@
         <p>{{ todayWeather.iconDesc.description }}</p>
       </div>
     </div>
+    <div class="location" v-else-if="todayWeather">{{ todayWeather }}</div>
   </header>
   <main>
     <section class="sideBar">
@@ -44,7 +45,7 @@ export default {
   data() {
     return {
       weatherOutput: {},
-      todayWeather: {}
+      todayWeather: ''
     }
   },
   provide() {
@@ -62,7 +63,11 @@ export default {
       //const data = await getData('http://localhost:8081/test_data')
       //const data = await getData('http://localhost:8081/data/' + location)
       const data = await getData('https://weather-app-e871.onrender.com/data/' + location)
-      this.weatherOutput = data
+      if(data.forcast.length <= 1) {
+        this.weatherOutput = ''
+      } else {
+        this.weatherOutput = data
+      }
       this.todayWeather = data.forcast[0]
     }
   }
