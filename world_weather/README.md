@@ -16,7 +16,16 @@ Vue.js: allows for the creation of dynamic and interactive user interfaces, enab
 
 HTML/CSS: The app's structure and styling are implemented using HTML and CSS, ensuring a visually appealing and responsive design.
 
+Geographic Location API: https://www.geonames.org/ API to fetch location data based on user input. Returns latitude and longitude for use in weather search (for accuracy).
+
 Weather API: https://www.weatherbit.io/ API to fetch real-time weather data. The API provides access to various weather parameters, such as temperature, humidity, wind speed, and forecast information.
+
+### TO DO: 
+```sh
+Use current weather endpoint for weather by the hour + severe weather alerts for header area,
+Use GeoLocation for inital load of weather data,
+Add nighttime color styling and ability to switch automatically based on local time
+```
 
 
 ## Project Setup
