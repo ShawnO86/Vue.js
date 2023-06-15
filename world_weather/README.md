@@ -39,6 +39,12 @@ npm install
 npm run dev
 ```
 
+### Start server to serve index.html and css/js frontend with custom API
+
+```sh
+npm run serve
+```
+
 ### Compile and Minify for Production
 
 ```sh
