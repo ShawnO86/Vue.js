@@ -20,6 +20,8 @@ Geographic Location API: https://www.geonames.org/ API to fetch location data ba
 
 Weather API: https://www.weatherbit.io/ API to fetch real-time weather data. The API provides access to various weather parameters, such as temperature, humidity, wind speed, and forecast information.
 
+Hosted at: https://weather-app-e871.onrender.com/ 
+
 ### TO DO: 
 Use current weather endpoint for weather by the hour + severe weather alerts for header area,
 Use GeoLocation for inital load of weather data,
