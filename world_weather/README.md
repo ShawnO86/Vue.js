@@ -1,14 +1,23 @@
 # world_weather
 
-This template should help get you started developing with Vue 3 in Vite.
+Weather web app built using Node.js, Express.js, Vue.js, and bundled with Vite.
 
-## Recommended IDE Setup
+Users can search for any location by entering a city name or ZIP code. The app will retrieve the weather data for the specified location and display it on the interface.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Weather information for the selected location includes temperature, humidity, wind speed, UV index, rain chance, sunrise/sunset times, and weather conditions (e.g., sunny, cloudy, rainy) in a 7-day forecast.
 
-## Customize configuration
+The app is designed to be responsive, adapting to different screen sizes and devices.
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+Node.js: server-side scripting, enabling efficient handling of API requests and data processing.
+
+Express.js: a web framework for Node.js, is used to handle routing and middleware integration, simplifying the development of server-side functionality.
+
+Vue.js: allows for the creation of dynamic and interactive user interfaces, enabling seamless data binding and smooth user experience.
+
+HTML/CSS: The app's structure and styling are implemented using HTML and CSS, ensuring a visually appealing and responsive design.
+
+Weather API: https://www.weatherbit.io/ API to fetch real-time weather data. The API provides access to various weather parameters, such as temperature, humidity, wind speed, and forecast information.
+
 
 ## Project Setup
 
