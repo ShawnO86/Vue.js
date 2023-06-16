@@ -1,6 +1,5 @@
 <template>
   <div class="weatherItemsHolder">
-    <sub>Click on a day for more info.</sub>
     <div v-for="(item, index) in weatherOutput.forcast" :key="index" class="weatherItems">
       <weather-item :day="item"></weather-item>
     </div>
@@ -17,14 +16,14 @@ export default {
 
 <style scoped>
 .weatherItems {
-  display: flex;
-  flex-direction: column;
   margin: 0.5rem 0;
   width: 100%;
 }
 .weatherItemsHolder {
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  margin: 1rem auto 0 auto;
-  overflow-y: auto;
+  height: 100%;
+  margin: 2.5rem auto 0 auto;
 }
 </style>

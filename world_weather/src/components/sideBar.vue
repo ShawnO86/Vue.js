@@ -1,6 +1,7 @@
 <template>
   <location-input @location="getInput"></location-input>
-  <div v-if="weatherData" class="weatherDisplay">
+  <div v-if="weatherData && currentLocation" class="weatherDisplay">
+    <sub>Click on a day for more info.</sub>
     <weather-display :weatherOutput="weatherData" />
   </div>
 </template>
@@ -17,7 +18,7 @@ export default {
   props: ['weatherData'],
   data() {
     return {
-      currentLocation: '',
+      currentLocation: 'Chicago, IL',
     }
   },
   methods: {
@@ -34,5 +35,6 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
 }
 </style>

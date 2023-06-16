@@ -65,7 +65,7 @@ const timeStampToReadable = (timestamp) => {
 }
 
 // --------- test data
-/*  const weatherData =
+ /* const weatherData =
 {
   long: '-87.65005',
   lat: '41.85003',
@@ -84,6 +84,7 @@ const timeStampToReadable = (timestamp) => {
       rain_chance: "25%",
       clouds: "41%",
       wind_dir: "NE",
+      uv: 7.5,
       sunrise: timeStampToReadable('1530321260'),
       sunset: timeStampToReadable('1530391260'),
       iconDesc: { icon: iconURL("c04d"), description: "Overcast clouds" }
@@ -99,6 +100,7 @@ const timeStampToReadable = (timestamp) => {
       rain_chance: "25%",
       clouds: "41%",
       wind_dir: "NE",
+      uv: 7.5,
       sunrise: timeStampToReadable('1530321260'),
       sunset: timeStampToReadable('1530391260'),
       iconDesc: { icon: iconURL("c04d"), description: "Overcast clouds" }
@@ -114,6 +116,7 @@ const timeStampToReadable = (timestamp) => {
       rain_chance: "25%",
       clouds: "41%",
       wind_dir: "NE",
+      uv: 7.5,
       sunrise: timeStampToReadable('1530321260'),
       sunset: timeStampToReadable('1530391260'),
       iconDesc: { icon: iconURL("c04d"), description: "Overcast clouds" }
@@ -129,6 +132,7 @@ const timeStampToReadable = (timestamp) => {
       rain_chance: "25%",
       clouds: "41%",
       wind_dir: "NE",
+      uv: 7.5,
       sunrise: timeStampToReadable('1530321260'),
       sunset: timeStampToReadable('1530391260'),
       iconDesc: { icon: iconURL("c04d"), description: "Overcast clouds" }
@@ -144,6 +148,7 @@ const timeStampToReadable = (timestamp) => {
       rain_chance: "25%",
       clouds: "41%",
       wind_dir: "NE",
+      uv: 7.5,
       sunrise: timeStampToReadable('1530321260'),
       sunset: timeStampToReadable('1530391260'),
       iconDesc: { icon: iconURL("c04d"), description: "Overcast clouds" }
@@ -159,6 +164,7 @@ const timeStampToReadable = (timestamp) => {
       rain_chance: "25%",
       clouds: "41%",
       wind_dir: "NE",
+      uv: 7.5,
       sunrise: timeStampToReadable('1530321260'),
       sunset: timeStampToReadable('1530391260'),
       iconDesc: { icon: iconURL("c04d"), description: "Overcast clouds" }
@@ -174,6 +180,7 @@ const timeStampToReadable = (timestamp) => {
       rain_chance: "25%",
       clouds: "41%",
       wind_dir: "NE",
+      uv: 7.5,
       sunrise: timeStampToReadable('1530321260'),
       sunset: timeStampToReadable('1530391260'),
       iconDesc: { icon: iconURL("c04d"), description: "Overcast clouds" }
@@ -188,8 +195,7 @@ app.get('/test_data', async (req, res) => {
   } catch (e) {
     console.log("error", e);
   }
-}); 
- */
+});  */
 
 app.get('/data/:city', async (req, res) => {
   await getGeoData(req);
@@ -205,7 +211,6 @@ const getGeoData = async (req) => {
   let geoData = await fetch(`http://api.geonames.org/searchJSON?q=${city}&maxRows=1&fuzzy=0.8&username=${geoKey}`);
   try {
     const data = await geoData.json();
-    //console.log("geo data:", data)
     //populate projectData object with api data
     projectData = {
       long: data.geonames[0].lng,

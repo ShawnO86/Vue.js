@@ -58,6 +58,9 @@ export default {
       return this.weatherOutput.name + ', ' + this.weatherOutput.local
     }
   },
+  mounted() {
+    this.getWeather("Chicago, IL")
+  },
   methods: {
     async getWeather(location) {
       //const data = await getData('http://localhost:8081/test_data')
@@ -109,13 +112,14 @@ main {
 header {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
 }
 .sideBar {
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
   padding: 0 clamp(0.5rem, 2.5vw, 3rem);
   background: rgb(var(--bg-rgb), 0.5);
   overflow: auto;
@@ -123,7 +127,6 @@ header {
 .location {
   display: flex;
   justify-content: space-between;
-  margin: 3rem 0 50vh 0;
   background: rgba(var(--bg-rgb), 0.5);
   padding: 0.5rem clamp(1rem, 5vw, 3rem);
 }
