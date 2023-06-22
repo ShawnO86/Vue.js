@@ -23,7 +23,7 @@ Weather API: https://www.weatherbit.io/ API to fetch real-time weather data. The
 Hosted at: https://weather-app-e871.onrender.com/ 
 
 ### TO DO: 
-Use current weather endpoint for weather by the hour + severe weather alerts for header area,
+~~Use current weather endpoint for weather by the hour + severe weather alerts for header area,~~
 Use GeoLocation for inital load of weather data,
 Add nighttime color styling and ability to switch automatically based on local time
 
