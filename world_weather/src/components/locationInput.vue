@@ -50,12 +50,11 @@ form {
 
 input,
 button {
-  padding: 0.75rem;
   margin-top: 0.5rem;
   background-color: rgb(var(--bg-rgb));
-  border-radius: 0.5rem;
   border: 1px solid rgb(var(--bg-rgb));
-  color: var(--text-color);
+  color: rgb(var(--text-rgb));
+  padding: 1rem 0;
 }
 
 input:focus,
@@ -74,6 +73,7 @@ button {
 
 input::placeholder {
   color: rgb(var(--text-rgb), 0.7);
+  padding-left: 1rem;
 }
 
 label {

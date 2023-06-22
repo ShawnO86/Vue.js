@@ -53,10 +53,7 @@ export default {
   
   <style scoped>
 details {
-  padding: 0.5rem 0;
-}
-.weatherDetails {
-  padding: 1rem 0;
+  padding: 0.5rem 0 0 0;
 }
 summary {
   display: flex;
@@ -65,9 +62,9 @@ summary {
   gap: 0.25rem;
   align-items: center;
   background-color: rgba(var(--bg-rgb), 0.25);
-  border: 1px solid rgba(var(--text-rgb), 0.25);
-  border-radius: 0.5rem;
-  padding: 0 0.75rem;
+  border-top: 1px solid rgba(var(--text-rgb), 0.25);
+  border-bottom: 1px solid rgba(var(--text-rgb), 0.25);
+  padding: 0 clamp(0.5rem, 2.5vw, 3rem);
   cursor: pointer;
 }
 summary:hover,
@@ -75,7 +72,8 @@ summary:focus {
   outline: none;
   color: rgb(var(--pop-rgb));
   background-color: rgba(var(--bg-rgb), 0.5);
-  border: 1px solid rgba(var(--pop-rgb), 0.25);
+  border-top: 1px solid rgba(var(--pop-rgb), 0.5);
+  border-bottom: 1px solid rgba(var(--pop-rgb), 0.5);
 }
 .firstGroup {
   display: flex;
@@ -87,16 +85,16 @@ summary:focus {
   flex-direction: column;
   align-items: flex-end;
 }
-.weatherDetails {
-  padding: 0.5rem 0;
-}
 .weatherDetails p {
   display: flex;
   justify-content: space-between;
   background: rgba(var(--secondary-rgb), 0.1);
-  margin-bottom: 0.25rem;
-  padding: 0.25rem 0.75rem;
+  margin: 0.25rem 0;
+  padding: 0.5rem clamp(0.5rem, 2.5vw, 3rem);
   border-radius: 0.25rem;
+}
+.weatherDetails p:last-of-type {
+  margin-bottom: 0;
 }
 span {
   font-weight: 500;

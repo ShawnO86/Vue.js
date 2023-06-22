@@ -34,7 +34,7 @@ app.listen(port, () => {
   console.log("Server listening on port", port);
 });
 
-let projectData = {};
+const projectData = {};
 const geoKey = process.env.geonames_key;
 const weatherBitKey = process.env.weatherbit_key;
 const iconURL = (icon) => {
@@ -48,31 +48,43 @@ const m = currentDayTime.getMinutes();
 const currentDay = (date) => {
   const dayValue = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   const d = new Date(`${date}, ${now}:${m}`);
-  const day = dayValue[d.getDay()];
-  return day;
+  return dayValue[d.getDay()];
 };
 
 const dayMonth = (date) => {
   const monthValue = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const d = new Date(`${date}, ${now}:${m}`)
-  const month = monthValue[d.getMonth()];
-  return `${month} ${d.getDate()}`;
+  return `${monthValue[d.getMonth()]} ${d.getDate()}`;
 }
 
 const timeStampToReadable = (timestamp) => {
-  const ts = new Date(timestamp * 1000);  
+  const ts = new Date(timestamp * 1000);
   return ts;
 }
 
 // --------- test data
- /* const weatherData =
+/* const weatherData =
 {
   long: '-87.65005',
   lat: '41.85003',
   country: 'United States',
   local: 'Illinois',
   name: 'Chicago',
-  forcast: [
+  currentWeather: {
+    alerts: "No alerts at this time",
+    temp: 87,
+    feelsLike: 92,
+    air: 82,
+    clouds: 0 + "%",
+    observedTime: timeStampToReadable(1687375800),
+    humidity: 35 + "%",
+    wind_speed: 9.2 + "MPH",
+    wind_dir: "ENE",
+    rain_chance: 0 + "%",
+    uv: Math.round(9.774478 * 10) / 10,
+    iconDesc: { icon: iconURL("c04d"), description: "Overcast clouds" }
+  },
+ forcast: [
     {
       day: currentDay('2023-06-14'),
       date: dayMonth('2023-06-14'),
@@ -195,7 +207,7 @@ app.get('/test_data', async (req, res) => {
   } catch (e) {
     console.log("error", e);
   }
-});  */
+}); */
 
 app.get('/data/:city', async (req, res) => {
   await getGeoData(req);
@@ -211,16 +223,15 @@ const getGeoData = async (req) => {
   let geoData = await fetch(`http://api.geonames.org/searchJSON?q=${city}&maxRows=1&fuzzy=0.8&username=${geoKey}`);
   try {
     const data = await geoData.json();
-    //populate projectData object with api data
-    projectData = {
-      long: data.geonames[0].lng,
-      lat: data.geonames[0].lat,
-      country: data.geonames[0].countryName,
-      local: data.geonames[0].adminName1,
-      name: data.geonames[0].name
-    };
+    //populate projectData with api data
+    projectData.long = data.geonames[0].lng
+    projectData.lat = data.geonames[0].lat
+    projectData.country = data.geonames[0].countryName
+    projectData.local = data.geonames[0].adminName1
+    projectData.name = data.geonames[0].name
     //call other APIs that require geonames data
     await getForcastArr(projectData.lat, projectData.long);
+    await getCurrentWeather(projectData.lat, projectData.long);
   } catch (e) {
     console.log(e);
   }
@@ -258,6 +269,38 @@ const getForcastArr = async (lat, long) => {
     }
     //add forcast array to projectData
     projectData.forcast = forcast;
+  } catch (e) {
+    console.log("error:", e);
+  }
+}
+
+const getCurrentWeather = async (lat, long) => {
+  let weatherData = await fetch(`https://api.weatherbit.io/v2.0/current?lat=${lat}&lon=${long}&key=${weatherBitKey}&include=minutely,alerts&units=I`)
+  let currentWeather = {}
+  try {
+    const wData = await weatherData.json();
+    if (wData.status_code == 429) {
+      currentWeather[0] = wData.status_message;
+      console.log(wData.status_message)
+    } else {
+      const data = wData.data[0];
+      currentWeather = {
+        alerts: !wData.alerts[0] ? "No alerts at this time" : wData.alerts[0].description,
+        temp: data.temp,
+        feelsLike: data.app_temp,
+        air: data.aqi,
+        clouds: data.clouds + "%",
+        observedTime: timeStampToReadable(data.ts),
+        humidity: data.rh + "%",
+        wind_speed: data.wind_spd + "MPH",
+        wind_dir: data.wind_cdir,
+        rain_chance: data.precip + "%",
+        uv: Math.round(data.uv * 10) / 10,
+        iconDesc: { icon: iconURL(data.weather.icon), description: data.weather.description }
+      }
+      projectData.currentWeather = currentWeather
+      console.log(currentWeather)
+    }
   } catch (e) {
     console.log("error:", e);
   }

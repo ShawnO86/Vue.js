@@ -1,17 +1,65 @@
 <template>
   <header>
     <h1>Weather.forcast</h1>
-    <div class="location" v-if="todayWeather && todayWeather.iconDesc">
-      <div class="frontLocation">
-        <h2>
-          {{ currentLocation }} - {{ todayWeather.low_temp }}&deg;F /
-          {{ todayWeather.high_temp }}&deg;F
-        </h2>
-        <p>{{ todayWeather.day }}, {{ todayWeather.date }}</p>
+    <div class="todayWeather" v-if="todayWeather && todayWeather.iconDesc">
+      <div class="location">
+        <div class="frontLocation">
+          <div>
+            <h2>
+              {{ currentLocation }}
+            </h2>
+            <h3>{{ weatherOutput.forcast[0].day }}, {{ weatherOutput.forcast[0].date }}</h3>
+          </div>
+          <div>
+            <p>
+              Current: <span class="bold">{{ todayWeather.temp }}&deg; F</span>
+            </p>
+            <p>
+              Feels Like: <span class="bold">{{ todayWeather.feelsLike }}&deg; F</span>
+            </p>
+          </div>
+        </div>
+        <div class="frontWeather">
+          <figure>
+            <img :src="todayWeather.iconDesc.icon" class="frontIcon" alt="weather icon" />
+            <figcaption>{{ todayWeather.iconDesc.description }}</figcaption>
+          </figure>
+        </div>
       </div>
-      <div class="frontWeather">
-        <img :src="todayWeather.iconDesc.icon" class="frontIcon" alt="weather icon"/>
-        <p>{{ todayWeather.iconDesc.description }}</p>
+      <div class="extraWeather_holder">
+        <div class="location_border"></div>
+        <div class="extraWeather_data">
+          <div class="extraWeather_firstSet">
+            <p>
+              Chance of Rain: <span class="bold">{{ todayWeather.rain_chance }}</span>
+            </p>
+            <p>
+              Wind:
+              <span class="bold">{{ todayWeather.wind_speed }} - {{ todayWeather.wind_dir }}</span>
+            </p>
+            <p>
+              UV Index: <span class="bold">{{ todayWeather.uv }}</span>
+            </p>
+          </div>
+          <div class="extraWeather_secondSet">
+            <p>
+              Humidity: <span class="bold">{{ todayWeather.humidity }}</span>
+            </p>
+            <p>
+              Cloud Cover: <span class="bold">{{ todayWeather.clouds }}</span>
+            </p>
+            <p>
+              Air Quality Index: <span class="bold">{{ todayWeather.air }}</span>
+            </p>
+          </div>
+        </div>
+        <div class="extraWeather_alerts">
+          <div class="location_border"></div>
+          <h4>Weather Alerts:</h4>
+          {{ todayWeather.alerts }}
+          <div class="location_border"></div>
+          <p>Last Checked: {{ convertTimeToLocal(todayWeather.observedTime) }}</p>
+        </div>
       </div>
     </div>
     <div class="location" v-else-if="todayWeather">{{ todayWeather }}</div>
@@ -59,19 +107,27 @@ export default {
     }
   },
   mounted() {
-    this.getWeather("Chicago, IL")
+    this.getWeather('Chicago, IL')
   },
   methods: {
     async getWeather(location) {
       //const data = await getData('http://localhost:8081/test_data')
-      //const data = await getData('http://localhost:8081/data/' + location)
-      const data = await getData('https://weather-app-e871.onrender.com/data/' + location)
-      if(data.forcast.length <= 1) {
+      const data = await getData('http://localhost:8081/data/' + location)
+      //const data = await getData('https://weather-app-e871.onrender.com/data/' + location)
+      if (data.forcast.length <= 1) {
         this.weatherOutput = ''
       } else {
         this.weatherOutput = data
       }
-      this.todayWeather = data.forcast[0]
+      this.todayWeather = data.currentWeather
+    },
+    convertTimeToLocal(time) {
+      const localTimeZone = new Date(time)
+        .toLocaleString('en', { timeZoneName: 'short' })
+        .split(' ')
+      localTimeZone[1] = localTimeZone[1].split(':')
+      localTimeZone[1] = [localTimeZone[1][0], localTimeZone[1][1]]
+      return `${localTimeZone[1].join(':')} ${localTimeZone[2]}`
     }
   }
 }
@@ -96,6 +152,7 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
 }
 #app {
   display: flex;
@@ -107,32 +164,53 @@ body {
 main {
   display: flex;
   min-width: 44vw;
-
 }
 header {
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 100%;
+
 }
 .sideBar {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
-  padding: 0 clamp(0.5rem, 2.5vw, 3rem);
   background: rgb(var(--bg-rgb), 0.5);
   overflow: auto;
+  padding: 0 clamp(0.5rem, 2.5vw, 3rem);
+}
+.todayWeather {
+  background: rgba(var(--bg-rgb), 0.5);
+  padding: 1.5rem clamp(1rem, 2.5vw, 3rem);
+  margin: 0 clamp(0.25rem, 1.5vw, 2rem);
+  border-radius: 0.5rem;
+  overflow-y: auto;
 }
 .location {
   display: flex;
   justify-content: space-between;
-  background: rgba(var(--bg-rgb), 0.5);
-  padding: 0.5rem clamp(1rem, 5vw, 3rem);
+}
+.extraWeather_holder {
+  display: flex;
+  flex-direction: column;
+}
+.extraWeather_data {
+  display: flex;
+  justify-content: space-between;
+}
+.extraWeather_secondSet {
+  text-align: right;
+}
+.location_border {
+  border-top: 1px solid rgb(var(--text-rgb));
+  width: 100%;
+  margin: 1rem 0;
 }
 h1 {
   font-size: 1.5rem;
-  padding: 0.5rem clamp(1rem, 5vw, 3rem);
+  padding: 0 clamp(1.25rem, 4vw, 5rem);
 }
 h2 {
   font-size: 2rem;
@@ -141,57 +219,58 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 0.5rem;
 }
-.frontWeather {
+.frontWeather,
+.frontWeather figure {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  margin-top: 1rem;
+  justify-content: center;
+}
+.bold {
+  font-weight: 700;
 }
 .frontIcon {
-  width: 4rem;
+  width: clamp(3rem, 5vw, 5rem);
 }
 img {
   width: 3rem;
   margin-bottom: -0.5rem;
 }
-@media screen and (max-width: 1440px) {
-  .location {
-    flex-direction: column;
-  }
-  .frontWeather {
-    align-items: flex-start;
-  }
-}
 @media screen and (max-width: 1024px) {
-  body {
-    background: rgb(var(--bg-rgb));
-  }
   #app {
     flex-direction: column;
     height: 100%;
-    background: #007ab3;
   }
   main {
     height: 100%;
   }
   header {
     padding: 0.5rem clamp(2rem, 6vw, 5rem) 0 clamp(2rem, 6vw, 5rem);
-    flex: 0;
+    background: rgb(var(--bg-rgb), 0.8);
   }
   .sideBar {
     padding: 0 clamp(2rem, 6vw, 5rem);
-    background: linear-gradient(180deg, #007ab3 0%, rgb(var(--bg-rgb)) 80%);
-    overflow-y: auto;
+    background: rgb(var(--bg-rgb), 0.8);
   }
+  .sideBar form {
+  position:static;
+  background: none;
+}
   h1 {
     padding: 0.25rem 0;
   }
+  .todayWeather {
+  background: none;
+  padding: 0;
+  margin: 0;
+}
   .location {
     margin: 0.5rem 0;
     flex-direction: row;
-    padding: 0.5rem 0;
     background: none;
+    height: fit-content;
   }
   .frontWeather {
     align-items: flex-end;
@@ -202,18 +281,15 @@ img {
 }
 @media screen and (max-width: 768px) {
   h2 {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
   img {
     width: 2.5rem;
   }
-  .frontIcon {
-    width: 3rem;
-  }
 }
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 500px) {
   body {
-    font-size: 12px;
+    font-size: 14px;
   }
   header {
     padding: 0.25rem;
@@ -223,7 +299,6 @@ img {
   }
   .location {
     flex-wrap: wrap;
-    justify-content: space-around;
   }
   img {
     width: 2rem;

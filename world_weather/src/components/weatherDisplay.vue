@@ -16,7 +16,7 @@ export default {
 
 <style scoped>
 .weatherItems {
-  margin: 0.5rem 0;
+  margin: 0.5rem 0 0 0;
   width: 100%;
 }
 .weatherItemsHolder {
@@ -24,6 +24,6 @@ export default {
   flex-direction: column;
   width: 100%;
   height: 100%;
-  margin: 2.5rem auto 0 auto;
+  margin: 2rem auto;
 }
 </style>
