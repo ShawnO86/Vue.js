@@ -58,7 +58,7 @@
           <h4>Weather Alerts:</h4>
           {{ todayWeather.alerts }}
           <div class="location_border"></div>
-          <p>Last Checked: {{ convertTimeToLocal(todayWeather.observedTime) }}</p>
+          <p>Last Updated: {{ convertTimeToLocal(todayWeather.observedTime) }}</p>
         </div>
       </div>
     </div>
@@ -112,8 +112,8 @@ export default {
   methods: {
     async getWeather(location) {
       //const data = await getData('http://localhost:8081/test_data')
-      const data = await getData('http://localhost:8081/data/' + location)
-      //const data = await getData('https://weather-app-e871.onrender.com/data/' + location)
+      //const data = await getData('http://localhost:8081/data/' + location)
+      const data = await getData('https://weather-app-e871.onrender.com/data/' + location)
       if (data.forcast.length <= 1) {
         this.weatherOutput = ''
       } else {
