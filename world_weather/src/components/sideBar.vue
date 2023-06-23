@@ -1,6 +1,6 @@
 <template>
   <location-input @location="getInput"></location-input>
-  <div v-if="weatherData && currentLocation" class="weatherDisplay">
+  <div v-if="weatherData || weatherOutput" class="weatherDisplay">
     <sub>Click on a day for more info.</sub>
     <weather-display :weatherOutput="weatherData" />
   </div>
@@ -18,12 +18,10 @@ export default {
   props: ['weatherData'],
   data() {
     return {
-      currentLocation: ['Rockford, IL', 'no', 'no'],
+      currentLocation: '',
     }
   },
-  mounted() {
-
-  },
+  inject: ['weatherOutput'],
   methods: {
     getInput(location) {
       this.currentLocation = location

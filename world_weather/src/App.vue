@@ -73,6 +73,7 @@
 
 <script>
 import SideBar from './components/sideBar.vue'
+import { computed } from 'vue'
 
 const getData = async (url = '') => {
   //calls argument url and waits for data/status
@@ -98,7 +99,7 @@ export default {
   },
   provide() {
     return {
-      weatherOutput: this.weatherOutput
+      weatherOutput: computed(() => this.weatherOutput)
     }
   },
   computed: {
@@ -107,21 +108,30 @@ export default {
     }
   },
   mounted() {
-    this.getWeather(['Rockford, IL', 'no', 'no'])
+    this.getLocation()
   },
   methods: {
+    getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(this.sendLocation)
+      }
+    },
+    sendLocation(position) {
+      this.getWeather(['no', position.coords.latitude, position.coords.longitude])
+    },
     async getWeather(params) {
       //params are -- [city, lat, long] --
       //const data = await getData('http://localhost:8081/test_data')
-      const data = await getData(`http://localhost:8081/data/${params[0]}/${params[1]}/${params[2]}`)
-      //const data = await getData('https://weather-app-e871.onrender.com/data/' + location)
+/*       const data = await getData(
+        `http://localhost:8081/data/${params[0]}/${params[1]}/${params[2]}`
+      ) */
+      const data = await getData(`https://weather-app-e871.onrender.com/data/${params[0]}/${params[1]}/${params[2]}`)
       if (!data) {
         this.weatherOutput = ''
       } else {
         this.weatherOutput = data
       }
       this.todayWeather = data.currentWeather
-      console.log(this.weatherOutput.status)
     },
     convertTimeToLocal(time) {
       const localTimeZone = new Date(time)
@@ -157,7 +167,6 @@ body {
   line-height: 1.6;
   background: linear-gradient(180deg, #007ab3 20%, #b4cfdb 110%);
   max-width: 120rem;
-  margin: auto;
 }
 #app {
   display: flex;
@@ -175,7 +184,7 @@ header {
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  margin: auto clamp(1rem, 4vw, 5rem);
+  margin: 1rem clamp(1rem, 4vw, 5rem);
 }
 .sideBar {
   display: flex;
@@ -208,7 +217,7 @@ header {
   text-align: right;
 }
 .location_border {
-  border-top: 1px solid rgb(var(--text-rgb));
+  border-top: 1px dotted rgb(var(--text-rgb));
   width: 100%;
   margin: 1rem 0;
 }
@@ -261,20 +270,20 @@ img {
     padding: 0 clamp(2rem, 6vw, 5rem);
     background: rgb(var(--bg-rgb), 0.8);
     width: 95%;
-    margin: auto;;
+    margin: auto;
   }
   .sideBar form {
-  position:static;
-  background: none;
-}
+    position: static;
+    background: none;
+  }
   h1 {
     padding: 0.25rem 0;
   }
   .todayWeather {
-  background: none;
-  padding: 0;
-  margin: 0;
-}
+    background: none;
+    padding: 0;
+    margin: 0;
+  }
   .location {
     margin: 0.5rem 0;
     flex-direction: row;

@@ -63,11 +63,11 @@ const timeStampToReadable = (timestamp) => {
 }
 
 const uppercaseFirst = (word) => {
- return word.charAt(0).toUpperCase() + word.slice(1)
+  return word.charAt(0).toUpperCase() + word.slice(1)
 }
 
 // --------- test data
-/* const weatherData =
+const weatherData =
 {
   long: '-87.65005',
   lat: '41.85003',
@@ -205,14 +205,14 @@ const uppercaseFirst = (word) => {
   ]
 };
 
-app.get('/test_data', async (res) => {
+app.get('/test_data', async (req) => {
   try {
     console.log(weatherData)
-    res.send(weatherData);
+    req.send(weatherData);
   } catch (e) {
     console.log("error", e);
   }
-}); */
+});
 
 app.get('/data/:city?/:lat?/:long?', async (req, res) => {
   await getGeoData(req);
@@ -226,24 +226,38 @@ app.get('/data/:city?/:lat?/:long?', async (req, res) => {
 const getGeoData = async (req) => {
   let geoData = ''
   if (req.params.city !== 'no') {
-    geoData = await fetch(`http://api.geonames.org/searchJSON?q=${req.params.city}&maxRows=1&fuzzy=0.8&username=${geoKey}`);
+    geoData = await fetch(`http://api.geonames.org/searchJSON?q=${req.params.city}&maxRows=1&username=${geoKey}`);
+    try {
+      const data = await geoData.json();
+      //populate projectData with api data
+      projectData.long = data.geonames[0].lng
+      projectData.lat = data.geonames[0].lat
+      projectData.country = data.geonames[0].countryName
+      projectData.local = data.geonames[0].adminName1
+      projectData.name = data.geonames[0].name
+      //call other APIs that require geonames data
+      await getForcastArr(projectData.lat, projectData.long);
+      await getCurrentWeather(projectData.lat, projectData.long);
+    } catch (e) {
+      console.log("Geo search data error", e);
+    }
   }
-  if (req.params.lat !== 'no' && req.params.long !== 'no') {
-    geoData = await fetch(`http://api.geonames.org/findNearbyPostalCodes?lat=${req.params.lat}&lng=${req.params.long}&username=${geoKey}`)
-  }
-  try {
-    const data = await geoData.json();
-    //populate projectData with api data
-    projectData.long = data.geonames[0].lng
-    projectData.lat = data.geonames[0].lat
-    projectData.country = data.geonames[0].countryName
-    projectData.local = data.geonames[0].adminName1
-    projectData.name = data.geonames[0].name
-    //call other APIs that require geonames data
-    await getForcastArr(projectData.lat, projectData.long);
-    await getCurrentWeather(projectData.lat, projectData.long);
-  } catch (e) {
-    console.log("Geo data error", e);
+  else if (req.params.lat !== 'no' && req.params.long !== 'no') {
+    geoData = await fetch(`http://api.geonames.org/findNearbyPostalCodesJSON?lat=${req.params.lat}&lng=${req.params.long}&maxRows=1&username=${geoKey}`)
+    try {
+      const data = await geoData.json();
+      //populate projectData with api data
+      projectData.long = data.postalCodes[0].lng
+      projectData.lat = data.postalCodes[0].lat
+      projectData.country = data.postalCodes[0].countryCode
+      projectData.local = data.postalCodes[0].adminName1
+      projectData.name = data.postalCodes[0].placeName
+      //call other APIs that require geonames data
+      await getForcastArr(projectData.lat, projectData.long);
+      await getCurrentWeather(projectData.lat, projectData.long);
+    } catch (e) {
+      console.log("Geo postal data error", e);
+    }
   }
 };
 
@@ -251,10 +265,13 @@ const getForcastArr = async (lat, long) => {
   let forcast = [];
   let weatherData = await fetch(`https://api.weatherbit.io/v2.0/forecast/daily?&lat=${lat}&lon=${long}&units=I&key=${weatherBitKey}`);
   try {
-    console.log(weatherData)
-    if (weatherData.status === 429) {
-      projectData.status = `Server Status ${weatherData.status} - ${weatherData.statusText} - Retry Later`;
-      console.log("forecast status", weatherData.statusText)
+    const wData = await weatherData.json();
+    if (wData.status_code == 429) {
+      projectData.status = wData.status_message;
+      console.log(wData.status_message)
+      /*  if (weatherData.status === 429) {
+         projectData.status = `Server Status ${weatherData.status} - ${weatherData.statusText} - Retry Later`;
+         console.log("forecast status", weatherData.statusText) */
     } else {
       const wData = await weatherData.json();
       //Loop over weatherbit api data - to extract data app uses
@@ -290,9 +307,13 @@ const getCurrentWeather = async (lat, long) => {
   let weatherData = await fetch(`https://api.weatherbit.io/v2.0/current?lat=${lat}&lon=${long}&key=${weatherBitKey}&include=minutely,alerts&units=I`)
   let currentWeather = {}
   try {
-    if (weatherData.status === 429) {
-      projectData.status = `Server Status ${weatherData.status} - ${weatherData.statusText} - Retry Later`;
-      console.log("forecast status", weatherData.statusText)
+    const wData = await weatherData.json();
+    if (wData.status_code == 429) {
+      projectData.status = wData.status_message;
+      console.log(wData.status_message)
+      /*     if (weatherData.status === 429) {
+            projectData.status = `Server Status ${weatherData.status} - ${weatherData.statusText} - Retry Later`;
+            console.log("forecast status", weatherData.statusText)*/
     } else {
       const wData = await weatherData.json();
       const data = wData.data[0];
@@ -305,7 +326,7 @@ const getCurrentWeather = async (lat, long) => {
         observedTime: timeStampToReadable(data.ts),
         humidity: data.rh + "%",
         wind_speed: data.wind_spd + "MPH",
-        wind_dir: uppercaseFirst(data.wind_cdir_full),
+        wind_dir: data.wind_cdir,
         rain_chance: data.precip + "%",
         uv: Math.round(data.uv * 10) / 10,
         iconDesc: { icon: iconURL(data.weather.icon), description: data.weather.description }
