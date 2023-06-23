@@ -1,7 +1,7 @@
 <template>
   <header>
-    <h1>Weather.forcast</h1>
-    <div class="todayWeather" v-if="todayWeather && todayWeather.iconDesc">
+    <h1>Weather.forecast</h1>
+    <div class="todayWeather" v-if="todayWeather && todayWeather.iconDesc && !weatherOutput.status">
       <div class="location">
         <div class="frontLocation">
           <div>
@@ -62,7 +62,7 @@
         </div>
       </div>
     </div>
-    <div class="location" v-else-if="todayWeather">{{ todayWeather }}</div>
+    <div class="todayWeather" v-else-if="weatherOutput.status">{{ weatherOutput.status }}</div>
   </header>
   <main>
     <section class="sideBar">
@@ -107,19 +107,21 @@ export default {
     }
   },
   mounted() {
-    this.getWeather('Chicago, IL')
+    this.getWeather(['Rockford, IL', 'no', 'no'])
   },
   methods: {
-    async getWeather(location) {
+    async getWeather(params) {
+      //params are -- [city, lat, long] --
       //const data = await getData('http://localhost:8081/test_data')
-      //const data = await getData('http://localhost:8081/data/' + location)
-      const data = await getData('https://weather-app-e871.onrender.com/data/' + location)
-      if (data.forcast.length <= 1) {
+      const data = await getData(`http://localhost:8081/data/${params[0]}/${params[1]}/${params[2]}`)
+      //const data = await getData('https://weather-app-e871.onrender.com/data/' + location)
+      if (!data) {
         this.weatherOutput = ''
       } else {
         this.weatherOutput = data
       }
       this.todayWeather = data.currentWeather
+      console.log(this.weatherOutput.status)
     },
     convertTimeToLocal(time) {
       const localTimeZone = new Date(time)
@@ -153,38 +155,40 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
+  background: linear-gradient(180deg, #007ab3 20%, #b4cfdb 110%);
+  max-width: 120rem;
+  margin: auto;
 }
 #app {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   height: 100vh;
   color: rgb(var(--text-rgb));
-  background: linear-gradient(180deg, #007ab3 20%, #b4cfdb 110%);
 }
 main {
   display: flex;
-  min-width: 44vw;
+  width: 100%;
+  margin: 0 clamp(1rem, 4vw, 5rem) 0 0;
 }
 header {
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 100%;
-
+  margin: auto clamp(1rem, 4vw, 5rem);
 }
 .sideBar {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
-  background: rgb(var(--bg-rgb), 0.5);
+  background: rgb(var(--bg-rgb), 0.8);
   overflow: auto;
-  padding: 0 clamp(0.5rem, 2.5vw, 3rem);
+  padding: 0 clamp(0.5rem, 3vw, 4rem);
 }
 .todayWeather {
-  background: rgba(var(--bg-rgb), 0.5);
-  padding: 1.5rem clamp(1rem, 2.5vw, 3rem);
-  margin: 0 clamp(0.25rem, 1.5vw, 2rem);
+  background: rgba(var(--bg-rgb), 0.8);
+  padding: 1.5rem clamp(1rem, 3vw, 4rem);
   border-radius: 0.5rem;
   overflow-y: auto;
 }
@@ -210,7 +214,7 @@ header {
 }
 h1 {
   font-size: 1.5rem;
-  padding: 0 clamp(1.25rem, 4vw, 5rem);
+  padding: 0.5rem clamp(1rem, 3vw, 4rem);
 }
 h2 {
   font-size: 2rem;
@@ -245,14 +249,19 @@ img {
   }
   main {
     height: 100%;
+    margin: 0;
   }
   header {
     padding: 0.5rem clamp(2rem, 6vw, 5rem) 0 clamp(2rem, 6vw, 5rem);
     background: rgb(var(--bg-rgb), 0.8);
+    width: 95%;
+    margin: auto;
   }
   .sideBar {
     padding: 0 clamp(2rem, 6vw, 5rem);
     background: rgb(var(--bg-rgb), 0.8);
+    width: 95%;
+    margin: auto;;
   }
   .sideBar form {
   position:static;
@@ -280,8 +289,11 @@ img {
   }
 }
 @media screen and (max-width: 768px) {
-  h2 {
-    font-size: 1.5rem;
+  header {
+    width: 100%;
+  }
+  .sideBar {
+    width: 100%;
   }
   img {
     width: 2.5rem;
@@ -296,6 +308,9 @@ img {
   }
   h1 {
     text-align: center;
+  }
+  h2 {
+    font-size: 1.5rem;
   }
   .location {
     flex-wrap: wrap;

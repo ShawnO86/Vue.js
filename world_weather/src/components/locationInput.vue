@@ -31,7 +31,7 @@ export default {
         }, 4000)
       } else {
         this.locationError = ''
-        this.$emit('location', this.locationInput)
+        this.$emit('location', [this.locationInput, 'no', 'no'])
       }
     }
   }

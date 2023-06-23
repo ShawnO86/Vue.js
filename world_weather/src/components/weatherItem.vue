@@ -22,8 +22,13 @@
         Relative Humidity: <span>{{ day.humidity }}</span>
       </p>
       <p>
-        Wind Speeds: <sub>Avg/Max/Dir</sub>
-        <span>{{ day.wind_speed }} / {{ day.wind_gusts }} {{ day.wind_dir }}</span>
+        Wind Speed Avg: <span>{{ day.wind_speed }}</span>
+      </p>
+      <p>
+        Wind Speed Max: <span>{{ day.wind_gusts }}</span>
+      </p>
+      <p>Wind Direction
+        <span>{{ day.wind_dir }}</span>
       </p>
       <p>
         UV Index: <span>{{ day.uv }}</span>
@@ -91,7 +96,8 @@ summary:focus {
   background: rgba(var(--secondary-rgb), 0.1);
   margin: 0.25rem 0;
   padding: 0.5rem clamp(0.5rem, 2.5vw, 3rem);
-  border-radius: 0.25rem;
+  border-top: 1px solid rgba(var(--text-rgb), 0.25);
+  border-bottom: 1px solid rgba(var(--text-rgb), 0.25);
 }
 .weatherDetails p:last-of-type {
   margin-bottom: 0;

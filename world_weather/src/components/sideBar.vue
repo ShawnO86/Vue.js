@@ -18,8 +18,11 @@ export default {
   props: ['weatherData'],
   data() {
     return {
-      currentLocation: 'Chicago, IL',
+      currentLocation: ['Rockford, IL', 'no', 'no'],
     }
+  },
+  mounted() {
+
   },
   methods: {
     getInput(location) {
