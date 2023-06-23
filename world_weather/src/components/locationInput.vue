@@ -45,7 +45,7 @@ form {
   padding: 1rem 0;
   width: 100%;
   gap: 0 1rem;
-  border-bottom: 1px solid rgb(var(--text-rgb), 0.7);
+  border-bottom: 1px dotted rgb(var(--text-rgb));
 }
 
 input,
@@ -79,5 +79,6 @@ input::placeholder {
 label {
   flex: 1 100%;
   text-align: left;
+  font-weight: 500;
 }
 </style>

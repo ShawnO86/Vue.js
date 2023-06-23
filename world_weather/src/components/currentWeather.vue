@@ -83,3 +83,46 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.location {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.extraWeather_holder {
+  display: flex;
+  flex-direction: column;
+}
+.extraWeather_data {
+  display: flex;
+  justify-content: space-between;
+}
+.extraWeather_secondSet {
+  text-align: right;
+}
+.location_border {
+  border-top: 1px dotted rgb(var(--text-rgb));
+  width: 100%;
+  margin: 1rem 0;
+}
+.frontLocation {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.frontWeather,
+.frontWeather figure {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+.bold {
+  font-weight: 700;
+}
+.frontIcon {
+  width: clamp(3rem, 5vw, 5rem);
+}
+</style>

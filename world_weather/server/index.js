@@ -62,10 +62,6 @@ const timeStampToReadable = (timestamp) => {
   return ts;
 }
 
-const uppercaseFirst = (word) => {
-  return word.charAt(0).toUpperCase() + word.slice(1)
-}
-
 // --------- test data
 const weatherData =
 {
@@ -76,7 +72,7 @@ const weatherData =
   name: 'Chicago',
   status: '',
   currentWeather: {
-    alerts: "No weather alerts at this time.",
+    alerts: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     temp: 87,
     feelsLike: 92,
     air: 82,
@@ -285,7 +281,7 @@ const getForcastArr = async (lat, long) => {
           humidity: element.rh + "%",
           wind_speed: element.wind_spd + "MPH",
           wind_gusts: element.wind_gust_spd + "MPH",
-          wind_dir: uppercaseFirst(element.wind_cdir_full),
+          wind_dir: element.wind_cdir,
           rain_chance: element.pop + "%",
           clouds: element.clouds + "%",
           uv: element.uv,
