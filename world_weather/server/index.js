@@ -62,6 +62,10 @@ const timeStampToReadable = (timestamp) => {
   return ts;
 }
 
+const uppercaseFirst = (word) => {
+ return word.charAt(0).toUpperCase() + word.slice(1)
+}
+
 // --------- test data
 /* const weatherData =
 {
@@ -264,7 +268,7 @@ const getForcastArr = async (lat, long) => {
           humidity: element.rh + "%",
           wind_speed: element.wind_spd + "MPH",
           wind_gusts: element.wind_gust_spd + "MPH",
-          wind_dir: element.wind_cdir,
+          wind_dir: uppercaseFirst(element.wind_cdir_full),
           rain_chance: element.pop + "%",
           clouds: element.clouds + "%",
           uv: element.uv,
@@ -301,7 +305,7 @@ const getCurrentWeather = async (lat, long) => {
         observedTime: timeStampToReadable(data.ts),
         humidity: data.rh + "%",
         wind_speed: data.wind_spd + "MPH",
-        wind_dir: data.wind_cdir,
+        wind_dir: uppercaseFirst(data.wind_cdir_full),
         rain_chance: data.precip + "%",
         uv: Math.round(data.uv * 10) / 10,
         iconDesc: { icon: iconURL(data.weather.icon), description: data.weather.description }
