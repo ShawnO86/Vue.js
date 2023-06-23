@@ -205,10 +205,10 @@ const weatherData =
   ]
 };
 
-app.get('/test_data', async (req) => {
+app.get('/test_data', async (req, res) => {
   try {
     console.log(weatherData)
-    req.send(weatherData);
+    res.send(weatherData);
   } catch (e) {
     console.log("error", e);
   }
