@@ -98,6 +98,7 @@ summary:focus {
 .weatherDetails p {
   display: flex;
   justify-content: space-between;
+
   background: rgba(var(--secondary-rgb), 0.1);
   margin: 0.25rem 0;
   padding: 0.5rem clamp(0.5rem, 2vw, 2rem);
@@ -105,6 +106,7 @@ summary:focus {
   border-bottom: 1px solid rgba(var(--text-rgb), 0.25);
 }
 span {
+  text-align: right;
   display: block;
   font-weight: 500;
 }

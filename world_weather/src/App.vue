@@ -1,8 +1,9 @@
 <template>
-  <header v-if="todayWeather">
-    <h1>Weather.forecast</h1>
+  <header>
+    <h1 v-if="todayWeather && weatherOpen">Weather.forecast</h1>
+    <h1 v-else-if="todayNews && newsOpen">Weather.news</h1>
   </header>
-  <main>
+  <main v-if="todayWeather && weatherOpen">
     <section class="currentWeather">
       <current-weather
         :todayWeather="todayWeather"
@@ -10,7 +11,26 @@
       ></current-weather>
     </section>
     <section class="sideBar" v-if="weatherOutput">
-      <side-bar @location="getWeather" :weather-data="weatherOutput"></side-bar>
+      <side-bar
+        @location="getWeather"
+        @isWeatherOpen="toggleWeatherOpen"
+        @isNewsOpen="toggleNewsOpen"
+        :weather-data="weatherOutput"
+        :is-news-open="newsOpen"
+        :is-weather-open="weatherOpen"
+      ></side-bar>
+    </section>
+  </main>
+  <main v-else-if="todayNews && newsOpen">
+    <section class="sideBar" v-if="weatherOutput">
+      <side-bar
+        @location="getWeather"
+        @isWeatherOpen="toggleWeatherOpen"
+        @isNewsOpen="toggleNewsOpen"
+        :weather-data="weatherOutput"
+        :is-news-open="newsOpen"
+        :is-weather-open="weatherOpen"
+      ></side-bar>
     </section>
   </main>
 </template>
@@ -40,7 +60,10 @@ export default {
   data() {
     return {
       weatherOutput: {},
-      todayWeather: ''
+      todayWeather: '',
+      todayNews: 'abc',
+      newsOpen: false,
+      weatherOpen: true
     }
   },
   provide() {
@@ -73,6 +96,14 @@ export default {
         this.weatherOutput = data
       }
       this.todayWeather = data.currentWeather
+    },
+    toggleWeatherOpen() {
+      this.weatherOpen = true
+      this.newsOpen = false
+    },
+    toggleNewsOpen() {
+      this.newsOpen = true
+      this.weatherOpen = false
     }
   }
 }
@@ -106,6 +137,13 @@ body {
   min-height: 100vh;
   color: rgb(var(--text-rgb));
 }
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: -0.8rem;
+  padding: 0.5rem clamp(1rem, 3vw, 4rem) 0 clamp(1rem, 3vw, 4rem);
+}
 main {
   display: flex;
   gap: clamp(0.5rem, 3vw, 4rem);
@@ -121,6 +159,7 @@ main {
   background: rgb(var(--bg-rgb), 0.8);
   padding: 0 clamp(0.5rem, 2vw, 2rem);
   border-radius: 0.5rem;
+  min-height: 60vh;
 }
 .todayWeather {
   position: sticky;
@@ -130,8 +169,6 @@ main {
   border-radius: 0.5rem;
 }
 h1 {
-  padding: 0.5rem clamp(1rem, 3vw, 4rem) 0 clamp(1rem, 3vw, 4rem);
-  margin-bottom: -0.8rem;
   color: rgba(var(--bg-rgb), 0.8);
 }
 img {
@@ -151,7 +188,7 @@ img {
     background: rgb(var(--pop-rgb));
   }
   header {
-    text-align: center;
+    padding: 0.5rem clamp(0.5rem, 2vw, 2rem) 0 clamp(0.5rem, 2vw, 2rem);
   }
   main {
     margin: 0;
@@ -168,9 +205,13 @@ img {
   body {
     line-height: 1.5;
   }
+  header {
+    text-align: center;
+    padding: 0.5rem 0 0 0.2rem;
+    margin-bottom: -0.6rem;
+  }
   h1 {
     font-size: 1.75rem;
-    margin-bottom: -0.6rem;
   }
   .sideBar {
     padding: 0 0.2rem;
