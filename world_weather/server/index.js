@@ -269,7 +269,6 @@ const getForcastArr = async (lat, long) => {
          projectData.status = `Server Status ${weatherData.status} - ${weatherData.statusText} - Retry Later`;
          console.log("forecast status", weatherData.statusText) */
     } else {
-      const wData = await weatherData.json();
       //Loop over weatherbit api data - to extract data app uses
       wData.data.forEach(element => {
         //push the 7 days of forcast to the forcast array 
@@ -311,7 +310,6 @@ const getCurrentWeather = async (lat, long) => {
             projectData.status = `Server Status ${weatherData.status} - ${weatherData.statusText} - Retry Later`;
             console.log("forecast status", weatherData.statusText)*/
     } else {
-      const wData = await weatherData.json();
       const data = wData.data[0];
       currentWeather = {
         alerts: !wData.alerts[0] ? "No alerts at this time" : wData.alerts[0].description,
