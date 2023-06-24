@@ -8,6 +8,7 @@
       <current-weather
         :todayWeather="todayWeather"
         :weatherOutput="weatherOutput"
+        :locationMsg="locationMsg"
       ></current-weather>
     </section>
     <section class="sideBar" v-if="weatherOutput">
@@ -63,7 +64,8 @@ export default {
       todayWeather: '',
       todayNews: 'abc',
       newsOpen: false,
-      weatherOpen: true
+      weatherOpen: true,
+      locationMsg: ''
     }
   },
   provide() {
@@ -78,6 +80,8 @@ export default {
     getLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.sendLocation)
+      } else {
+        this.locationMsg = "Location is disabled; please turn it on and refresh the page or enter a location in the search bar."
       }
     },
     sendLocation(position) {

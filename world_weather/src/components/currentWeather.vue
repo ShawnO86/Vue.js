@@ -66,7 +66,7 @@
 
 <script>
 export default {
-  props: ['todayWeather', 'weatherOutput'],
+  props: ['todayWeather', 'weatherOutput', 'locationMsg'],
   computed: {
     currentLocation() {
       return this.weatherOutput.name + ', ' + this.weatherOutput.local
