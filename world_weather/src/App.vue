@@ -1,9 +1,9 @@
 <template>
   <header>
-    <h1 v-if="todayWeather && weatherOpen">Weather.forecast</h1>
+    <h1 v-if="weatherOpen">Weather.forecast</h1>
     <h1 v-else-if="todayNews && newsOpen">Weather.news</h1>
   </header>
-  <main v-if="todayWeather && weatherOpen">
+  <main v-if="weatherOpen">
     <section class="currentWeather">
       <current-weather
         :todayWeather="todayWeather"
@@ -78,6 +78,8 @@ export default {
     getLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.sendLocation)
+      } else {
+        this.getWeather()
       }
     },
     sendLocation(position) {
