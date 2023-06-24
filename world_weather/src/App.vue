@@ -79,21 +79,23 @@ export default {
   methods: {
     getLocation() {
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(this.sendLocation)
-      } else {
-        this.locationMsg = "Location is disabled; please turn it on and refresh the page or enter a location in the search bar."
+        navigator.geolocation.getCurrentPosition(this.sendLocation, this.locationError)
       }
     },
     sendLocation(position) {
+
       this.getWeather(['no', position.coords.latitude, position.coords.longitude])
     },
-    async getWeather(params) {
+    locationError(code) {
+      this.locationMsg = code.message
+    },
+    async getWeather(/* params */) {
       //params are -- [city, lat, long] --
-      //const data = await getData('http://localhost:8081/test_data')
+      const data = await getData('http://localhost:8081/test_data')
 /*       const data = await getData(
         `http://localhost:8081/data/${params[0]}/${params[1]}/${params[2]}`
       ) */
-      const data = await getData(`https://weather-app-e871.onrender.com/data/${params[0]}/${params[1]}/${params[2]}`)
+/*       const data = await getData(`https://weather-app-e871.onrender.com/data/${params[0]}/${params[1]}/${params[2]}`) */
       if (!data) {
         this.weatherOutput = ''
       } else {

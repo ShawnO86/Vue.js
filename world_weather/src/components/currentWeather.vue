@@ -61,7 +61,7 @@
     </div>
   </div>
   <div class="todayWeather" v-else-if="weatherOutput.status">{{ weatherOutput.status }}</div>
-  <div class="todayWeather" v-else><p>{{ locationMsg }}</p></div>
+  <div class="todayWeather" v-else><p>{{ locationMsg }}, use the search bar to get the weather for your specified location.</p></div>
 </template>
 
 <script>
