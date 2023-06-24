@@ -78,8 +78,6 @@ export default {
     getLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.sendLocation)
-      } else {
-        this.getWeather()
       }
     },
     sendLocation(position) {
