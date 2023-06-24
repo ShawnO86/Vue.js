@@ -89,13 +89,13 @@ export default {
     locationError(code) {
       this.locationMsg = code.message
     },
-    async getWeather(/* params */) {
+    async getWeather(params) {
       //params are -- [city, lat, long] --
-      const data = await getData('http://localhost:8081/test_data')
+      //const data = await getData('http://localhost:8081/test_data')
 /*       const data = await getData(
         `http://localhost:8081/data/${params[0]}/${params[1]}/${params[2]}`
       ) */
-/*       const data = await getData(`https://weather-app-e871.onrender.com/data/${params[0]}/${params[1]}/${params[2]}`) */
+       const data = await getData(`https://weather-app-e871.onrender.com/data/${params[0]}/${params[1]}/${params[2]}`) 
       if (!data) {
         this.weatherOutput = ''
       } else {
