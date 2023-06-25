@@ -25,7 +25,9 @@ Hosted at: https://weather-app-e871.onrender.com/
 ### TO DO: 
 ~~Use current weather endpoint for weather by the hour + severe weather alerts for header area,~~
 ~~Use GeoLocation for inital load of weather data,~~
-Add conditional styles to weather/news buttons when enabled,
+Set up post endpoint to add location data and news category input seperatly,
+Seperate get endpoints to send weather and news data seperatly,
+Add conditional styles to weather/news buttons when active,
 Add nighttime color styling and ability to switch automatically based on local time
 
 

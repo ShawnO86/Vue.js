@@ -1,7 +1,17 @@
 <template>
-  <h2>National Weather News</h2>
+  <h2>National News</h2>
   <h3>Work in progress...</h3>
-  <p>Will set up api for weather news and display here once its finished.</p>
+  <h4>Available categories will include:</h4>
+  <ul>
+    <li>business</li>
+    <li>entertainment</li>
+    <li>general</li>
+    <li>health</li>
+    <li>science</li>
+    <li>sports</li>
+    <li>technology</li>
+  </ul>
+  <p>Will set up api for news and display here once its finished.</p>
 </template>
 
 <script>

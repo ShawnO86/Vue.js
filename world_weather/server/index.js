@@ -37,6 +37,7 @@ app.listen(port, () => {
 const projectData = {};
 const geoKey = process.env.geonames_key;
 const weatherBitKey = process.env.weatherbit_key;
+//const newsapiKey = process.env.newsapi_key;
 const iconURL = (icon) => {
   return "https://cdn.weatherbit.io/static/img/icons/" + icon + ".png";
 };
@@ -209,7 +210,9 @@ app.get('/test_data', async (req, res) => {
     console.log("error", e);
   }
 });
-
+//change to POST to recieve weather city/geolocation
+//set up another POST for news category
+//then use get for sending weather data and news data seperate 
 app.get('/data/:city?/:lat?/:long?', async (req, res) => {
   await getGeoData(req);
   try {
@@ -265,9 +268,6 @@ const getForcastArr = async (lat, long) => {
     if (wData.status_code == 429) {
       projectData.status = wData.status_message;
       console.log(wData.status_message)
-      /*  if (weatherData.status === 429) {
-         projectData.status = `Server Status ${weatherData.status} - ${weatherData.statusText} - Retry Later`;
-         console.log("forecast status", weatherData.statusText) */
     } else {
       //Loop over weatherbit api data - to extract data app uses
       wData.data.forEach(element => {
@@ -306,9 +306,6 @@ const getCurrentWeather = async (lat, long) => {
     if (wData.status_code == 429) {
       projectData.status = wData.status_message;
       console.log(wData.status_message)
-      /*     if (weatherData.status === 429) {
-            projectData.status = `Server Status ${weatherData.status} - ${weatherData.statusText} - Retry Later`;
-            console.log("forecast status", weatherData.statusText)*/
     } else {
       const data = wData.data[0];
       currentWeather = {
@@ -332,3 +329,13 @@ const getCurrentWeather = async (lat, long) => {
     console.log("current weather error:", e);
   }
 }
+
+//newsapi endpoint im going to be using
+/* const getNews = async (category) => {
+  let newsData = await fetch(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${newsapiKey}&category=${category}`)
+  try {
+    const data = await newsData.json()
+  } catch(e) {
+    console.log("news data error: ", e)
+  }
+} */
